@@ -39,7 +39,9 @@ function App() {
     <>
       <Header />
       <BodyStyle>
-        {!singleView ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> : <>THIS IS SINGLE PAGE</>}
+        {!singleView 
+          ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> 
+          : <>THIS IS SINGLE PAGE</>}
       </BodyStyle>
     </>
   );
