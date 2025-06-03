@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import CardsList from "./CardsList";
+import SinglePage from "./SinglePage"
 import Card from "./Card";
 
 const BodyStyle = styled.div`
@@ -41,7 +42,7 @@ function App() {
       <BodyStyle>
         {!singleView 
           ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> 
-          : <>THIS IS SINGLE PAGE</>}
+          : <SinglePage item={item} />}
       </BodyStyle>
     </>
   );

@@ -28,6 +28,8 @@
     "jest": "^27.5.1",
     "nodemon": "^3.1.10",
     "parcel": "^2.15.1",
+    "react-router": "^7.6.1",
+    "react-router-dom": "^7.6.1",
     "react-test-renderer": "^18.3.1"
   }
 }
