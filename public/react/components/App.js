@@ -15,16 +15,31 @@ import apiURL from "../api";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [singleView, setSingleView] = useState(false);
+  const [item, setItem] = useState(null); //this is for single item view
 
   useEffect(() => {
-    // Fetch the items
+    async function fetchItems () {
+      try {
+        const response = await fetch(`${apiURL}/items`)
+        const itemsData = await response.json()
+        setItems(itemsData);
+        //console.log(itemsData);
+        //setPage(false);
+        //setShowCreate(false);
+      } catch (err) {
+        console.log('Oh no an error! ', err)
+      }
+    }
+
+    fetchItems()
   }, []);
 
   return (
     <>
       <Header />
       <BodyStyle>
-        <Card />
+        {!singleView ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> : <>THIS IS SINGLE PAGE</>}
       </BodyStyle>
     </>
   );

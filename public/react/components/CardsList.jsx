@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "./Card";
+import React, { useEffect, useState } from 'react';
 
 const CardWrapper = styled.div`
   background-color: gray;
@@ -8,13 +9,27 @@ const CardWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+  flex-wrap: wrap;
+  gap: 15px;
+  `
 
-export default function CardsList() {
+
+
+export default function CardsList({items, setSingleView, setItem}) {
+  
+  async function singleView(itm){
+    setSingleView(true);
+    setItem(itm);
+  }
+
   return (
     <>
     <CardWrapper>
-      <Card />
+      {items.map((item, idx)=>(
+        <div key={idx} onClick={() => singleView(item)}>
+          <Card /> 
+        </div>
+      ))}
     </CardWrapper>
     </>
   )
