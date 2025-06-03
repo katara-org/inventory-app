@@ -5,11 +5,31 @@ class Item extends Model {}
 
 Item.init(
   {
-    // Define your columns here
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false 
+    },
+    image: {
+      type: DataTypes.STRING, 
+      allowNull: false
+    }
   },
   {
     sequelize,
+    modelName: "Item",
   }
 );
+
 
 module.exports = Item;
