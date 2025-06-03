@@ -16,6 +16,14 @@ Item.init(
     description: {
       type: DataTypes.TEXT,
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false 
+    },
+    image: {
+      type: DataTypes.STRING, 
+      allowNull: false
+    }
   },
   {
     sequelize,
