@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CardsList from "./CardsList";
+import Card from "./Card";
 
 const Wrapper = styled.div`
   display: flex;
@@ -80,29 +81,10 @@ const AddToCardButton = styled.div`
   }
 `;
 
-export default function Card({item}) {
-  
-  if (!item){
-    return <>null!</>
-  }
-  
+export default function SinglePage({item}) {
   return (
     <>
-      <Wrapper>
-        <CardStyle>
-          <ItemImage src={item.image} />
-          <InfoWrapper>
-            <TitleAndPart>
-              <TitleFont>{item.name}</TitleFont>
-              <PartFont>#{item.id}</PartFont>
-            </TitleAndPart>
-            <QuantityNumber>
-              <i>{item.price}</i><p>in stock</p>
-            </QuantityNumber>
-          </InfoWrapper>
-        </CardStyle>
-        <AddToCardButton>Add to Cart</AddToCardButton>
-      </Wrapper>
+      <Card item={item}/>
     </>
   );
 }

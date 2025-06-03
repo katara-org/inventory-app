@@ -17,17 +17,17 @@ const CardWrapper = styled.div`
 
 export default function CardsList({items, setSingleView, setItem}) {
   
-  async function singleView(itm){
+  function singleView(itm){
+    setItem(itm.item);
     setSingleView(true);
-    setItem(itm);
   }
 
   return (
     <>
     <CardWrapper>
       {items.map((item, idx)=>(
-        <div key={idx} onClick={() => singleView(item)}>
-          <Card /> 
+        <div key={idx} onClick={() => singleView({item})}> 
+          <Card item={item} /> 
         </div>
       ))}
     </CardWrapper>
