@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import CardsList from "./CardsList";
 import Card from "./Card";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import apiURL from "../api";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,7 +39,6 @@ const InfoWrapper = styled.div`
   align-items: center;
   border-top: 1px solid black;
   overflow: hidden;
-
 `;
 
 const TitleAndPart = styled.div`
@@ -75,16 +76,33 @@ const AddToCardButton = styled.div`
   user-select: none;
   box-shadow: 0px 0px 20px gray;
 
-
   &:active {
     background-color: gray;
   }
 `;
 
-export default function SinglePage({item}) {
+export default function SinglePage() {
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    async function fetchItem() {
+      try {
+        const res = await fetch(`${apiURL}/items/${id}`);
+        const data = await res.json();
+        setItem(data);
+      } catch (err) {
+        console.log("Error: ", err)
+      }
+    }
+    fetchItem()
+  }, [id]);
+
+  if  (!item) return <div>Loading item</div>
+
   return (
     <>
-      <Card item={item}/>
+      <Card item={item} />
     </>
   );
 }
