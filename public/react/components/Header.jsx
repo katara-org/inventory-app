@@ -12,17 +12,17 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderContentLeft = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 50%;
+display: flex; 
+justify-content: space-around;
+align-items: center;
+width: 45%;
 `;
 
 const HeaderContentRight = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 50%;
+display: flex; 
+justify-content: flex-end;
+align-items: center;
+width: 45%;
 `;
 
 const HomeIcon = styled.img`
@@ -63,9 +63,9 @@ const Button = styled.div`
 
 const UserIcon = styled.div`
   display: flex;
-  align-items: center;
+    align-items: center;
   justify-content: center;
-  width: 50px;
+    width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: lightblue;
