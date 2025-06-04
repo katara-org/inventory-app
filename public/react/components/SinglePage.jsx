@@ -3,19 +3,24 @@ import Card from "./Card";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiURL from "../api";
+import { Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
-  margin-top: 20px;
+  margin-top: 25px;
+  gap: 50px;
 `;
 
 const CardStyle = styled.div`
   background-color: lightgray;
-  width: 300px;
-  height: 350px;
+  width: 70%;
+  height: 105%;
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
@@ -25,7 +30,7 @@ const CardStyle = styled.div`
 
 const ItemImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 350px;
   object-fit: scale-down;
   background-color: white;
   padding: 15px;
@@ -33,12 +38,21 @@ const ItemImage = styled.img`
   border-top-right-radius: 10px;
 `;
 
+const ImageAndInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  align-items: center;
+  flex-flow: row nowrap;
+  gap: 20px;
+  `;
+
 const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid black;
   overflow: hidden;
+  flex-flow: column nowrap;
 `;
 
 const TitleAndPart = styled.div`
@@ -64,26 +78,51 @@ const QuantityNumber = styled.div`
   border-left: 1px solid black;
 `;
 
-const AddToCardButton = styled.div`
+const Button = styled.div`
   text-align: center;
-  width: 100%;
+  width: 200px;
+  height: 50px;
   background-color: black;
   color: white;
-  height: auto;
   font-size: 1.4rem;
   margin-top: 7px;
   border-radius: 15px;
   user-select: none;
-  box-shadow: 0px 0px 20px gray;
-
   &:active {
-    background-color: gray;
+    background-color: darkgray;
   }
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ hover }) => hover || 'darkgray'};
+    height: 55px;
+    width: 210px;
+  }  
 `;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 100px;
+  flex-flow: row nowrap;`;
+
+  const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    color: #333333;
+  }
+`
+
+
 
 export default function SinglePage() {
   const { id } = useParams();
   const [item, setItem] = useState(null);
+  console.log("It's working! ID: ", id);
 
   useEffect(() => {
     async function fetchItem() {
@@ -100,9 +139,53 @@ export default function SinglePage() {
 
   if  (!item) return <div>Loading item</div>
 
+  
   return (
     <>
-      <Card item={item} />
+    <Wrapper>
+        <ImageAndInfo>  {/* This is first element in the column*/}
+            <CardStyle> {/* This is the card with image and name + part*/}
+             <ItemImage src={item.image} alt={item.title} />
+
+             <TitleAndPart> {/*This is for info under the picture*/}
+               <TitleFont>{item.name}</TitleFont>
+               <PartFont>Part #{item.id}</PartFont>
+            
+             </TitleAndPart>
+
+            </CardStyle>
+
+            <InfoWrapper> {/* This is for info on the right side of the image*/}
+                <h1>${item.price}</h1>
+                <h4>Amount in stock: 10</h4>
+                <Button>Add to cart</Button>
+            </InfoWrapper>
+            
+
+        </ImageAndInfo>
+      
+      
+        <CardStyle> {/* This is the card with description and categories*/}
+          <p>{item.description}</p> <br/>
+          <p><strong>Item Updated at : </strong> {item.updatedAt} </p> <br/>
+          <p><strong>Categories:</strong><br/> {item.category}</p>
+       
+        </CardStyle>
+
+        <ButtonWrapper>
+            <StyledLink to={`/`}>
+                <Button>
+                    Back to List
+                </Button>
+            </StyledLink>
+
+            <Button> Edit Item </Button>
+            <Button hover='red' > Delete Item </Button>
+            
+        </ButtonWrapper>
+    
+    </Wrapper>
+     
     </>
   );
 }

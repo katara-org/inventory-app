@@ -34,9 +34,11 @@ function App() {
 
     fetchItems()
   }, []);
+
   const handleItemAdded = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]); 
   };
+  
   return (
     <>
       <Header />
