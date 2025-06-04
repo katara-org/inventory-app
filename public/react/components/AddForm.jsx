@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-function AddForm({ onItemAdded }) {
+function AddForm({ handleItemAdded }) {
   const [formData, setFormData] = useState({
     name: '',
-    price: '',
+    price: 0,
     description: '',
     category: '',
     image: ''
@@ -26,7 +26,7 @@ function AddForm({ onItemAdded }) {
       });
       const data = await res.json();
       if (res.ok) {
-        onItemAdded(data); 
+        handleItemAdded(data); 
         setFormData({ name: '', price: '', description: '', category: '', image: '' });
       } else {
         alert("Error: " + data.error);
