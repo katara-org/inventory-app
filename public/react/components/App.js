@@ -52,7 +52,7 @@ function App() {
       <BodyStyle>
         <Routes>
           <Route path="/" element={<CardsList items={items} />} />
-          <Route path="/item/:id" element={<SinglePage handleItemDeleted={handleItemDeleted} />} />
+          <Route path="/item/:id" element={<SinglePage handleItemUpdated={handleItemUpdated} handleItemDeleted={handleItemDeleted} />} />
           <Route
             path="/create-item"
             element={<AddForm handleItemAdded={handleItemAdded} />}
@@ -60,6 +60,10 @@ function App() {
           <Route
             path="/delete-items"
             element={<DeleteForm handleItemDeleted={handleItemDeleted}/>}
+          />
+          <Route
+            path="/edit-item"
+            element={<UpdateForm handleItemUpdated={handleItemUpdated}/>}
           />
         </Routes>
       </BodyStyle>
