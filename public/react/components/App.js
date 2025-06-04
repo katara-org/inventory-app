@@ -42,7 +42,7 @@ function App() {
       <BodyStyle>
         {!singleView 
           ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> 
-          : <SinglePage item={item} />}
+          : <SinglePage item={item} setSingleView={setSingleView} />}
       </BodyStyle>
     </>
   );
