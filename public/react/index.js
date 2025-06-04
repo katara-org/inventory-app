@@ -1,5 +1,5 @@
 import React, { StrictMode } from "react";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import "regenerator-runtime/runtime";
 import App from "./components/App";
