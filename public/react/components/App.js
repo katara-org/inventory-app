@@ -4,6 +4,7 @@ import Header from "./Header";
 import CardsList from "./CardsList";
 import SinglePage from "./SinglePage"
 import Card from "./Card";
+import AddForm from "./AddForm";
 
 const BodyStyle = styled.div`
   display: flex;
@@ -35,7 +36,9 @@ function App() {
 
     fetchItems()
   }, []);
-
+  const handleItemAdded = (newItem) => {
+    setItems((prevItems) => [...prevItems, newItem]); 
+  };
   return (
     <>
       <Header />
