@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import AddForm from "./AddForm";
 
 const HeaderWrapper = styled.div`
   background-color: gray;
@@ -13,17 +12,17 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderContentLeft = styled.div`
-display: flex; 
-justify-content: space-around;
-align-items: center;
-width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
 `;
 
 const HeaderContentRight = styled.div`
-display: flex; 
-justify-content: flex-end;
-align-items: center;
-width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
 `;
 
 const HomeIcon = styled.img`
@@ -38,11 +37,11 @@ const StyledLink = styled(Link)`
   &:hover {
     color: #333333;
   }
-`
+`;
 
 const Button = styled.div`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   width: auto;
   height: auto;
@@ -58,15 +57,15 @@ align-items: center;
   }
   &:hover {
     cursor: pointer;
-    background-color: ${({ hover }) => hover || 'darkgray'};
-  }  
+    background-color: ${({ hover }) => hover || "darkgray"};
+  }
 `;
 
 const UserIcon = styled.div`
   display: flex;
-align-items: center;
+  align-items: center;
   justify-content: center;
-width: 50px;
+  width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: lightblue;
@@ -79,17 +78,18 @@ export default function Header() {
     <>
       <HeaderWrapper>
         <HeaderContentLeft>
-                  <StyledLink to="/">
-          <HomeIcon src="https://cdn-icons-png.flaticon.com/512/25/25694.png" />
-        </StyledLink>
-        <StyledLink to='/create-item'>
-          <Button>Create an Item</Button>
-        </StyledLink>
+          <StyledLink to="/">
+            <HomeIcon src="https://cdn-icons-png.flaticon.com/512/25/25694.png" />
+          </StyledLink>
+          <StyledLink to="/create-item">
+            <Button>Create an Item</Button>
+          </StyledLink>
+          <StyledLink to="/delete-items">
+            <Button>Delete an Item</Button>
+          </StyledLink>
         </HeaderContentLeft>
         <HeaderContentRight>
-          <UserIcon>
-            User
-          </UserIcon>
+          <UserIcon>User</UserIcon>
         </HeaderContentRight>
       </HeaderWrapper>
     </>
