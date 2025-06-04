@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const CardStyle = styled.div`
   background-color: lightgray;
-  width: 80%;
+  width: 70%;
   height: 105%;
   display: flex;
   justify-content: center;
@@ -83,8 +83,14 @@ const Button = styled.div`
   border-radius: 15px;
   user-select: none;
   &:active {
-    background-color: gray;
+    background-color: darkgray;
   }
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ hover }) => hover || 'darkgray'};
+    height: 55px;
+    width: 210px;
+  }  
 `;
 
 const ButtonWrapper = styled.div`
@@ -128,13 +134,13 @@ export default function SinglePage({item, setSingleView}) {
           <p>{item.description}</p> <br/>
           <p><strong>Item Updated at : </strong> {item.updatedAt} </p> <br/>
           <p><strong>Categories:</strong><br/> {item.category}</p>
-          <button onClick={() => setSingleView(false)}>Back to List</button>
        
         </CardStyle>
 
         <ButtonWrapper>
+            <Button onClick={() => setSingleView(false)}>Back to List</Button>
             <Button> Edit Item </Button>
-            <Button> Delete Item </Button>
+            <Button hover='red' > Delete Item </Button>
         </ButtonWrapper>
     
     </Wrapper>
