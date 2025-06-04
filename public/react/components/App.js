@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import CardsList from "./CardsList";
@@ -7,14 +7,13 @@ import AddForm from "./AddForm";
 import { Route, Routes } from "react-router-dom";
 import DeleteForm from "./DeleteForm";
 
+import apiURL from "../api";
+
 const BodyStyle = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
 `;
-
-// Prepend the API URL to any fetch calls.
-import apiURL from "../api";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -25,9 +24,6 @@ function App() {
         const response = await fetch(`${apiURL}/items`);
         const itemsData = await response.json();
         setItems(itemsData);
-        //console.log(itemsData);
-        //setPage(false);
-        //setShowCreate(false);
       } catch (err) {
         console.log("Oh no an error! ", err);
       }
@@ -39,17 +35,25 @@ function App() {
   const handleItemAdded = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]);
   };
-  
+
+  const handleItemDeleted = (deletedId) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== deletedId));
+  };
+
   return (
     <>
-      <Header></Header>
+      <Header />
       <BodyStyle>
         <Routes>
           <Route path="/" element={<CardsList items={items} />} />
-          <Route path="/item/:id" element={<SinglePage />} />
+          <Route path="/item/:id" element={<SinglePage handleItemDeleted={handleItemDeleted} />} />
           <Route
             path="/create-item"
             element={<AddForm handleItemAdded={handleItemAdded} />}
+          />
+          <Route
+            path="/delete-items"
+            element={<DeleteForm handleItemDeleted={handleItemDeleted}/>}
           />
         </Routes>
       </BodyStyle>
