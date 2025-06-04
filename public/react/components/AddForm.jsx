@@ -119,7 +119,7 @@ function AddForm({ handleItemAdded }) {
       const data = await res.json();
       if (res.ok) {
         handleItemAdded(data); 
-        setFormData({ name: '', price: 0, description: '', category: '', image: '' });
+        setFormData({ name: '', price: '', description: '', category: '', image: '' });
       } else {
         alert("Error: " + data.error);
       }
