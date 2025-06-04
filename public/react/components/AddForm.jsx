@@ -19,7 +19,7 @@ const FormWrapper = styled.div`
   flex-flow: column nowrap;
   margin-top: 20px;
   gap: 5px;
-  width: 50%;
+  width: 300px; 
 `;
 
 const Title = styled.h3`
@@ -34,7 +34,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 200px;
+  width: 100%;
   height: 50px;
   background-color: black;
   color: white;
@@ -42,6 +42,7 @@ const Button = styled.button`
   margin-top: 7px;
   border-radius: 15px;
   user-select: none;
+  border: none;
   &:active {
     background-color: black;
   }
@@ -56,8 +57,39 @@ const Preview = styled.div`
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
-  border-radius: 10px;`;
+`;
 
+const StyledInput = styled.input`
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  &:focus {
+    border: 1.5px solid #888;
+    outline: none;
+    background: #f8f8f8;
+  }
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  transition: border 0.2s;
+  &:focus {
+    border: 1.5px solid #888;
+    outline: none;
+    background: #f8f8f8;
+  }
+`;
 
 
 function AddForm({ handleItemAdded }) {
@@ -101,11 +133,11 @@ function AddForm({ handleItemAdded }) {
       <form onSubmit={handleSubmit}>  
         <FormWrapper>
           <Title>Add New Item</Title>
-          <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-          <input name="price" type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
-          <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-          <input name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
-          <input name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
+          <StyledInput name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+          <StyledInput name="price" type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
+          <StyledTextarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
+          <StyledInput name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
+          <StyledInput name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
           <Button type="submit">Add Item</Button>
           
         </FormWrapper>
