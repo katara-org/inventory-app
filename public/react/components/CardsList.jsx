@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Card from "./Card";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CardWrapper = styled.div`
   background-color: gray;
@@ -11,26 +12,25 @@ const CardWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
-  `
+`;
 
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
 
-
-export default function CardsList({items, setSingleView, setItem}) {
-  
-  function singleView(itm){
-    setItem(itm.item);
-    setSingleView(true);
+  &:hover {
+    color: #333333;
   }
+`
 
+export default function CardsList({ items }) {
   return (
-    <>
     <CardWrapper>
-      {items.map((item, idx)=>(
-        <div key={idx} onClick={() => singleView({item})}> 
-          <Card item={item} /> 
-        </div>
+      {items.map((item) => (
+        <StyledLink key={item.id} to={`/item/${item.id}`}>
+          <Card item={item} />
+        </StyledLink>
       ))}
     </CardWrapper>
-    </>
-  )
+  );
 }

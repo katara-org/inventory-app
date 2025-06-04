@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import CardsList from "./CardsList";
 import Card from "./Card";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import apiURL from "../api";
 
 const Wrapper = styled.div`
   display: flex;

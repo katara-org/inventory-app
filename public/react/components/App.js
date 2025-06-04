@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Header from "./Header";
 import CardsList from "./CardsList";
 import SinglePage from "./SinglePage"
-import Card from "./Card";
-import AddForm from "./AddForm";
+import AddForm from './AddForm'
+import { Route, Routes } from "react-router-dom";
 
 const BodyStyle = styled.div`
   display: flex;
@@ -17,8 +17,6 @@ import apiURL from "../api";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [singleView, setSingleView] = useState(false);
-  const [item, setItem] = useState(null); //this is for single item view
 
   useEffect(() => {
     async function fetchItems () {
@@ -43,9 +41,10 @@ function App() {
     <>
       <Header />
       <BodyStyle>
-        {!singleView 
-          ? <CardsList items={items} setSingleView={setSingleView} setItem={setItem} /> 
-          : <SinglePage item={item} setSingleView={setSingleView} />}
+        <Routes>
+          <Route path="/" element={<CardsList items={items} />}/>
+          <Route path="/item/:id" element={<SinglePage />} />
+        </Routes>
       </BodyStyle>
     </>
   );
