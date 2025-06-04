@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiURL from "../api";
 import { Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 
 const Wrapper = styled.div`
@@ -106,6 +108,15 @@ const ButtonWrapper = styled.div`
   gap: 100px;
   flex-flow: row nowrap;`;
 
+  const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    color: #333333;
+  }
+`
+
 
 
 export default function SinglePage() {
@@ -162,9 +173,15 @@ export default function SinglePage() {
         </CardStyle>
 
         <ButtonWrapper>
-            <Button >Back to List</Button>
+            <StyledLink to={`/`}>
+                <Button>
+                    Back to List
+                </Button>
+            </StyledLink>
+
             <Button> Edit Item </Button>
             <Button hover='red' > Delete Item </Button>
+            
         </ButtonWrapper>
     
     </Wrapper>
