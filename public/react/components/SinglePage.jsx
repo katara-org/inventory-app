@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import Card from "./Card";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiURL from "../api";
-import { Route, Routes } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -119,10 +117,10 @@ const ButtonWrapper = styled.div`
 
 
 
-export default function SinglePage() {
+export default function SinglePage({handleItemDeleted}) {
   const { id } = useParams();
   const [item, setItem] = useState(null);
-  console.log("It's working! ID: ", id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchItem() {
@@ -136,6 +134,26 @@ export default function SinglePage() {
     }
     fetchItem()
   }, [id]);
+
+    const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`http://localhost:3000/api/items/${id}`, {
+        method: "DELETE"
+      });
+
+      if (res.ok) {
+        handleItemDeleted(parseInt(id))
+        alert(`Item ${id} deleted successfully`);
+        navigate('/')
+      } else {
+        const data = await res.json();
+        alert("Error: " + data.error);
+      }
+    } catch (error) {
+      console.error("Failed to delete item", error);
+    }
+  };
 
   if  (!item) return <div>Loading item</div>
 
@@ -180,7 +198,7 @@ export default function SinglePage() {
             </StyledLink>
 
             <Button> Edit Item </Button>
-            <Button hover='red' > Delete Item </Button>
+            <Button onClick={handleDelete} > Delete Item </Button>
             
         </ButtonWrapper>
     
