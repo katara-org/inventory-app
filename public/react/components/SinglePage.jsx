@@ -3,6 +3,8 @@ import Card from "./Card";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiURL from "../api";
+import { Route, Routes } from "react-router-dom";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -106,7 +108,27 @@ const ButtonWrapper = styled.div`
 
 
 
-export default function SinglePage({item, setSingleView}) {
+export default function SinglePage() {
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
+  console.log("It's working! ID: ", id);
+
+  useEffect(() => {
+    async function fetchItem() {
+      try {
+        const res = await fetch(`${apiURL}/items/${id}`);
+        const data = await res.json();
+        setItem(data);
+      } catch (err) {
+        console.log("Error: ", err)
+      }
+    }
+    fetchItem()
+  }, [id]);
+
+  if  (!item) return <div>Loading item</div>
+
+  
   return (
     <>
     <Wrapper>
@@ -140,7 +162,7 @@ export default function SinglePage({item, setSingleView}) {
         </CardStyle>
 
         <ButtonWrapper>
-            <Button onClick={() => setSingleView(false)}>Back to List</Button>
+            <Button >Back to List</Button>
             <Button> Edit Item </Button>
             <Button hover='red' > Delete Item </Button>
         </ButtonWrapper>
