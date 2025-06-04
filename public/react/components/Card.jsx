@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import CardsList from "./CardsList";
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: flex-start;
   flex-flow: column nowrap;
   margin-top: 20px;
 `;
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
 const CardStyle = styled.div`
   background-color: lightgray;
   width: 300px;
-  height: 350px;
+  height: auto;
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
