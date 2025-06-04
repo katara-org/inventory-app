@@ -5,6 +5,7 @@ import CardsList from "./CardsList";
 import SinglePage from "./SinglePage";
 import AddForm from "./AddForm";
 import { Route, Routes } from "react-router-dom";
+import DeleteForm from "./DeleteForm";
 
 const BodyStyle = styled.div`
   display: flex;
@@ -39,6 +40,10 @@ function App() {
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
+  const handleItemDeleted = (deletedId) => {
+    setItems((prevItems) => prevItems.filter(item => item.id !== deletedId));
+  };
+  
   return (
     <>
       <Header></Header>
