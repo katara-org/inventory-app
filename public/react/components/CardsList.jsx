@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import Card from "./Card";
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const CardWrapper = styled.div`
-  background-color: gray;
   height: 4rem;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
+  padding: 0 10px;
 `;
 
 const StyledLink = styled(Link)`
