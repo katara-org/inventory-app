@@ -201,7 +201,7 @@ export default function SinglePage({handleItemDeleted}) {
             </StyledLink>
 
             <Button> Edit Item </Button>
-            <Button onClick={handleDelete} > Delete Item </Button>
+            <Button hover="red" onClick={handleDelete} > Delete Item </Button>
             
         </ButtonWrapper>
     
