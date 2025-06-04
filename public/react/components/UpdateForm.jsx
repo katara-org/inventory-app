@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function UpdateByIdForm({ onItemUpdated }) {
+function UpdateByIdForm({ handleItemUpdated }) {
   const [itemId, setItemId] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -38,7 +38,7 @@ function UpdateByIdForm({ onItemUpdated }) {
       const data = await res.json();
 
       if (res.ok) {
-        onItemUpdated(data);
+        handleItemUpdated(data);
         alert(`Item ${itemId} updated successfully`);
         setItemId("");
         setFormData({ name: "", price: "", description: "", category: "", image: "" });
