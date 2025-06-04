@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import AddForm from "./AddForm";
 
 const HeaderWrapper = styled.div`
   background-color: gray;
@@ -84,6 +83,9 @@ export default function Header() {
         </StyledLink>
         <StyledLink to='/create-item'>
           <Button>Create an Item</Button>
+        </StyledLink>
+        <StyledLink to='/delete-items'>
+          <Button>Delete an Item</Button>
         </StyledLink>
         </HeaderContentLeft>
         <HeaderContentRight>
