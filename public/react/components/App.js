@@ -6,6 +6,7 @@ import SinglePage from "./SinglePage";
 import AddForm from "./AddForm";
 import { Route, Routes } from "react-router-dom";
 import DeleteForm from "./DeleteForm";
+import UpdateForm from "./UpdateForm";
 
 import apiURL from "../api";
 
@@ -38,6 +39,15 @@ function App() {
 
   const handleItemDeleted = (deletedId) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== deletedId));
+  };
+
+=======
+  const handleItemDeleted = (deletedId) => {
+    setItems((prevItems) => prevItems.filter(item => item.id !== deletedId));
+  };
+
+  const handleItemUpdated = (updatedItem) => {
+    setItems(prevItems => prevItems.map(item => item.id === updatedItem.id ? updatedItem : item));
   };
 
   return (
