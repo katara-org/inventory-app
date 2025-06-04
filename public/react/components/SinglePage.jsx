@@ -79,6 +79,9 @@ const QuantityNumber = styled.div`
 `;
 
 const Button = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   width: 200px;
   height: 50px;
