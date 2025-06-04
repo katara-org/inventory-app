@@ -36,14 +36,16 @@ function App() {
   const handleItemAdded = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]);
   };
+
   const handleItemDeleted = (deletedId) => {
-    setItems((prevItems) => prevItems.filter(item => item.id !== deletedId));
+    setItems((prevItems) => prevItems.filter((item) => item.id !== deletedId));
   };
 
   const handleItemUpdated = (updatedItem) => {
     setItems(prevItems => prevItems.map(item => item.id === updatedItem.id ? updatedItem : item));
   };
   
+
   return (
     <>
       <Header />
