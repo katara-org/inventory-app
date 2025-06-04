@@ -39,10 +39,6 @@ function App() {
   const handleItemAdded = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]);
   };
-
-  const handleItemDeleted = (deletedId) => {
-    setItems((prevItems) => prevItems.filter(item => item.id !== deletedId));
-  };
   
   return (
     <>
