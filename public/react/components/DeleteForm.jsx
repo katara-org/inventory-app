@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-function DeleteForm({ onItemDeleted }) {
-  const [itemId, setItemId] = useState('');
+function DeleteForm({ handleItemDeleted }) {
+  const [itemId, setItemId] = useState("");
 
   const handleChange = (e) => {
     setItemId(e.target.value);
@@ -11,12 +12,12 @@ function DeleteForm({ onItemDeleted }) {
     e.preventDefault();
     try {
       const res = await fetch(`http://localhost:3000/api/items/${itemId}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (res.ok) {
-        onItemDeleted(parseInt(itemId)); 
-        setItemId('');
+        handleItemDeleted(parseInt(itemId));
+        setItemId("");
         alert(`Item ${itemId} deleted successfully`);
       } else {
         const data = await res.json();
@@ -31,6 +32,7 @@ function DeleteForm({ onItemDeleted }) {
     <form onSubmit={handleDelete}>
       <h3>Delete Item</h3>
       <input
+        min={1}
         name="itemId"
         placeholder="Enter Item ID"
         value={itemId}
