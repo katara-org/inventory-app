@@ -35,7 +35,6 @@ const InfoWrapper = styled.div`
   align-items: center;
   border-top: 1px solid black;
   overflow: hidden;
-
 `;
 
 const TitleAndPart = styled.div`
@@ -73,18 +72,16 @@ const AddToCardButton = styled.div`
   user-select: none;
   box-shadow: 0px 0px 20px gray;
 
-
   &:active {
     background-color: gray;
   }
 `;
 
-export default function Card({item}) {
-  
-  if (!item){
-    return <>null!</>
+export default function Card({ item }) {
+  if (!item) {
+    return <>null!</>;
   }
-  
+
   return (
     <>
       <Wrapper>
@@ -96,7 +93,8 @@ export default function Card({item}) {
               <PartFont>#{item.id}</PartFont>
             </TitleAndPart>
             <QuantityNumber>
-              <b>{item.price}</b><br/>
+              <b>${item.price}</b>
+              <br />
               <p>in stock: {item.quantity}</p>
             </QuantityNumber>
           </InfoWrapper>
