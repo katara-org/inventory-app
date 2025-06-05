@@ -201,19 +201,10 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
           <StyledLink to={`/`}>
             <Button>Back to List</Button>
           </StyledLink>
-          <StyledLink to='/edit-item'> 
+          <StyledLink to={`/edit-item/${item.id}`}> 
             <Button>Edit Item</Button>
           </StyledLink>
           <Button onClick={handleDelete}>Delete Item</Button>
-
-            <StyledLink to={`/`}>
-                <Button>
-                    Back to List
-                </Button>
-            </StyledLink>
-
-            <Button> Edit Item </Button>
-            <Button hover="red" onClick={handleDelete} > Delete Item </Button>
         </ButtonWrapper>
       </Wrapper>
     </>
