@@ -1,5 +1,46 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import apiURL from "../api";
+
+
+const StyledInput = styled.input`
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  &:focus {
+    border: 1.5px solid #888;
+    outline: none;
+    background: #f8f8f8;
+  }
+`;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  color: white;
+  font-size: 1.4rem;
+  margin-top: 7px;
+  border-radius: 15px;
+  user-select: none;
+  border: none;
+  &:active {
+    background-color: black;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ hover }) => hover || 'darkgray'};
+  }  
+`;
 
 function DeleteForm({ handleItemDeleted }) {
   const [itemId, setItemId] = useState("");
@@ -11,7 +52,7 @@ function DeleteForm({ handleItemDeleted }) {
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3000/api/items/${itemId}`, {
+      const res = await fetch(`${apiURL}/items/${itemId}`, {
         method: "DELETE",
       });
 
@@ -31,7 +72,7 @@ function DeleteForm({ handleItemDeleted }) {
   return (
     <form onSubmit={handleDelete}>
       <h3>Delete Item</h3>
-      <input
+      <StyledInput
         min={1}
         name="itemId"
         placeholder="Enter Item ID"
@@ -40,7 +81,7 @@ function DeleteForm({ handleItemDeleted }) {
         required
         type="number"
       />
-      <button type="submit">Delete Item</button>
+      <Button type="submit">Delete Item</Button>
     </form>
   );
 }
