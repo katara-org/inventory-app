@@ -62,7 +62,7 @@ function App() {
             element={<DeleteForm handleItemDeleted={handleItemDeleted}/>}
           />
           <Route
-            path="/edit-item"
+            path="/edit-item/:id"
             element={<UpdateForm handleItemUpdated={handleItemUpdated}/>}
           />
         </Routes>
