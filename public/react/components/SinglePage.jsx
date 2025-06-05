@@ -146,7 +146,7 @@ export default function SinglePage({ handleItemDeleted }) {
 
       if (res.ok) {
         handleItemDeleted(parseInt(id));
-        alert(`Item ${id} deleted successfully`);
+        alert(`Item #${id} deleted successfully`);
         navigate("/");
       } else {
         const data = await res.json();
@@ -175,6 +175,12 @@ export default function SinglePage({ handleItemDeleted }) {
   return (
     <>
       <Wrapper>
+        {showModal && (
+          <DeleteModal
+            handleCancelClick={handleCancelClick}
+            handleDelete={handleDelete}
+          />
+        )}
         <ImageAndInfo>
           {" "}
           {/* This is first element in the column*/}
@@ -220,13 +226,6 @@ export default function SinglePage({ handleItemDeleted }) {
             <Button>Edit Item</Button>
           </StyledLink>
           <Button onClick={handleDeleteClick}>Delete Item</Button>
-          {showModal && (
-            <DeleteModal
-              confirmDelete={confirmDelete}
-              handleCancelClick={handleCancelClick}
-              handleDelete={handleDelete}
-            />
-          )}
         </ButtonWrapper>
       </Wrapper>
     </>
