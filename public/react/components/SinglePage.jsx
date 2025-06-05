@@ -177,6 +177,7 @@ export default function SinglePage({ handleItemDeleted }) {
       <Wrapper>
         {showModal && (
           <DeleteModal
+            confirmDelete={confirmDelete}
             handleCancelClick={handleCancelClick}
             handleDelete={handleDelete}
           />
