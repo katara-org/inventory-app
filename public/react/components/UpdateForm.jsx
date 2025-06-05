@@ -1,18 +1,36 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateByIdForm({ handleItemUpdated }) {
-  const [itemId, setItemId] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
-    price: "",
+    price: 0,
     description: "",
     category: "",
     image: ""
   });
 
-  const handleIdChange = (e) => {
-    setItemId(e.target.value);
-  };
+  useEffect(() => {
+    async function fetchItem() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/items/${id}`)
+        const data = await res.json();
+        setFormData({
+          name: data?.name,
+          price: data?.price,
+          description: data?.description,
+          category: data?.category,
+          image: data?.image,
+        })
+      } catch (err) {
+        console.error("Error occurred: ", err)
+      }
+    }
+
+    if (id) fetchItem()
+  }, [id])
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -23,13 +41,9 @@ function UpdateByIdForm({ handleItemUpdated }) {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    if (!itemId) {
-      alert("Please enter an Item ID");
-      return;
-    }
 
     try {
-      const res = await fetch(`http://localhost:3000/api/items/${itemId}`, {
+      const res = await fetch(`http://localhost:3000/api/items/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -39,9 +53,8 @@ function UpdateByIdForm({ handleItemUpdated }) {
 
       if (res.ok) {
         handleItemUpdated(data);
-        alert(`Item ${itemId} updated successfully`);
-        setItemId("");
-        setFormData({ name: "", price: "", description: "", category: "", image: "" });
+        alert(`Item ${id} updated successfully`);
+        navigate(`/item/${id}`)
       } else {
         alert("Error: " + data.error);
       }
@@ -53,14 +66,13 @@ function UpdateByIdForm({ handleItemUpdated }) {
   return (
     <form onSubmit={handleUpdate}>
       <h3>Update Item by ID</h3>
-      <input
-        name="itemId"
+      {/* <input
+        name="id"
         type="number"
         placeholder="Enter Item ID"
-        value={itemId}
-        onChange={handleIdChange}
+        value={id}
         required
-      />
+      /> */}
       <input
         name="name"
         placeholder="Name"
@@ -72,6 +84,7 @@ function UpdateByIdForm({ handleItemUpdated }) {
         name="price"
         type="number"
         step="0.01"
+        min={0.01}
         placeholder="Price"
         value={formData.price}
         onChange={handleChange}
