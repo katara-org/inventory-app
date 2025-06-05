@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiURL from "../api";
 import { Link, useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
 
 const Wrapper = styled.div`
   display: flex;
@@ -117,10 +118,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
+export default function SinglePage({ handleItemDeleted }) {
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchItem() {
@@ -144,7 +146,7 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
 
       if (res.ok) {
         handleItemDeleted(parseInt(id));
-        alert(`Item ${id} deleted successfully`);
+        alert(`Item #${id} deleted successfully`);
         navigate("/");
       } else {
         const data = await res.json();
@@ -155,11 +157,30 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
     }
   };
 
+  const handleDeleteClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCancelClick = () => {
+    setShowModal(false);
+  };
+
+  const confirmDelete = () => {
+    setShowModal(false);
+    handleItemDeleted(id);
+  };
+
   if (!item) return <div>Loading item</div>;
 
   return (
     <>
       <Wrapper>
+        {showModal && (
+          <DeleteModal
+            handleCancelClick={handleCancelClick}
+            handleDelete={handleDelete}
+          />
+        )}
         <ImageAndInfo>
           {" "}
           {/* This is first element in the column*/}
@@ -178,7 +199,7 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
             {" "}
             {/* This is for info on the right side of the image*/}
             <h1>${item.price}</h1>
-            <h4>Amount in stock: 10</h4>
+            <p>Amount in stock: {item.quantity}</p>
             <Button>Add to cart</Button>
           </InfoWrapper>
         </ImageAndInfo>
@@ -201,10 +222,10 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
           <StyledLink to={`/`}>
             <Button>Back to List</Button>
           </StyledLink>
-          <StyledLink to={`/edit-item/${item.id}`}> 
+          <StyledLink to={`/edit-item/${item.id}`}>
             <Button>Edit Item</Button>
           </StyledLink>
-          <Button onClick={handleDelete}>Delete Item</Button>
+          <Button onClick={handleDeleteClick}>Delete Item</Button>
         </ButtonWrapper>
       </Wrapper>
     </>
