@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import apiURL from "../api";
 import { Link, useNavigate } from "react-router-dom";
 
-
-
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -43,7 +41,7 @@ const ImageAndInfo = styled.div`
   align-items: center;
   flex-flow: row nowrap;
   gap: 20px;
-  `;
+`;
 
 const InfoWrapper = styled.div`
   display: flex;
@@ -94,10 +92,10 @@ const Button = styled.div`
   }
   &:hover {
     cursor: pointer;
-    background-color: ${({ hover }) => hover || 'darkgray'};
+    background-color: ${({ hover }) => hover || "darkgray"};
     height: 55px;
     width: 210px;
-  }  
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -107,20 +105,19 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   margin-top: 10px;
   gap: 100px;
-  flex-flow: row nowrap;`;
+  flex-flow: row nowrap;
+`;
 
-  const StyledLink = styled(Link)`
+const StyledLink = styled(Link)`
   color: black;
   text-decoration: none;
 
   &:hover {
     color: #333333;
   }
-`
+`;
 
-
-
-export default function SinglePage({handleItemDeleted}) {
+export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
@@ -132,23 +129,23 @@ export default function SinglePage({handleItemDeleted}) {
         const data = await res.json();
         setItem(data);
       } catch (err) {
-        console.log("Error: ", err)
+        console.log("Error: ", err);
       }
     }
-    fetchItem()
+    fetchItem();
   }, [id]);
 
-    const handleDelete = async (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch(`http://localhost:3000/api/items/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (res.ok) {
-        handleItemDeleted(parseInt(id))
+        handleItemDeleted(parseInt(id));
         alert(`Item ${id} deleted successfully`);
-        navigate('/')
+        navigate("/");
       } else {
         const data = await res.json();
         alert("Error: " + data.error);
@@ -158,55 +155,58 @@ export default function SinglePage({handleItemDeleted}) {
     }
   };
 
-  if  (!item) return <div>Loading item</div>
+  if (!item) return <div>Loading item</div>;
 
-  
   return (
     <>
-    <Wrapper>
-        <ImageAndInfo>  {/* This is first element in the column*/}
-            <CardStyle> {/* This is the card with image and name + part*/}
-             <ItemImage src={item.image} alt={item.title} />
-
-             <TitleAndPart> {/*This is for info under the picture*/}
-               <TitleFont>{item.name}</TitleFont>
-               <PartFont>Part #{item.id}</PartFont>
-            
-             </TitleAndPart>
-
-            </CardStyle>
-
-            <InfoWrapper> {/* This is for info on the right side of the image*/}
-                <h1>${item.price}</h1>
-                <h4>Amount in stock: 10</h4>
-                <Button>Add to cart</Button>
-            </InfoWrapper>
-            
-
+      <Wrapper>
+        <ImageAndInfo>
+          {" "}
+          {/* This is first element in the column*/}
+          <CardStyle>
+            {" "}
+            {/* This is the card with image and name + part*/}
+            <ItemImage src={item.image} alt={item.title} />
+            <TitleAndPart>
+              {" "}
+              {/*This is for info under the picture*/}
+              <TitleFont>{item.name}</TitleFont>
+              <PartFont>Part #{item.id}</PartFont>
+            </TitleAndPart>
+          </CardStyle>
+          <InfoWrapper>
+            {" "}
+            {/* This is for info on the right side of the image*/}
+            <h1>${item.price}</h1>
+            <h4>Amount in stock: 10</h4>
+            <Button>Add to cart</Button>
+          </InfoWrapper>
         </ImageAndInfo>
-      
-      
-        <CardStyle> {/* This is the card with description and categories*/}
-          <p>{item.description}</p> <br/>
-          <p><strong>Item Updated at : </strong> {item.updatedAt} </p> <br/>
-          <p><strong>Categories:</strong><br/> {item.category}</p>
-       
+
+        <CardStyle>
+          {" "}
+          {/* This is the card with description and categories*/}
+          <p>{item.description}</p> <br />
+          <p>
+            <strong>Item Updated at : </strong> {item.updatedAt}{" "}
+          </p>{" "}
+          <br />
+          <p>
+            <strong>Categories:</strong>
+            <br /> {item.category}
+          </p>
         </CardStyle>
 
         <ButtonWrapper>
-            <StyledLink to={`/`}>
-                <Button>
-                    Back to List
-                </Button>
-            </StyledLink>
-
-            <Button> Edit Item </Button>
-            <Button hover="red" onClick={handleDelete} > Delete Item </Button>
-            
+          <StyledLink to={`/`}>
+            <Button>Back to List</Button>
+          </StyledLink>
+          <StyledLink to={`/edit-item/${item.id}`}> 
+            <Button>Edit Item</Button>
+          </StyledLink>
+          <Button onClick={handleDelete}>Delete Item</Button>
         </ButtonWrapper>
-    
-    </Wrapper>
-     
+      </Wrapper>
     </>
   );
 }
