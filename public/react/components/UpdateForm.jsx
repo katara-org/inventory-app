@@ -1,5 +1,96 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import apiURL from "../api";
+import Card from "./Card";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 10px;
+  justify-content: space-around;
+  width: 70%;
+`;
+
+
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  flex-flow: column nowrap;
+  margin-top: 20px;
+  gap: 5px;
+  width: 300px; 
+`;
+
+const Title = styled.h3`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: 200px;
+`;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  color: white;
+  font-size: 1.4rem;
+  margin-top: 7px;
+  border-radius: 15px;
+  user-select: none;
+  border: none;
+  &:active {
+    background-color: black;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ hover }) => hover || 'darkgray'};
+  }  
+`;
+
+const Preview = styled.div`
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-flow: column nowrap;
+`;
+
+const StyledInput = styled.input`
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  &:focus {
+    border: 1.5px solid #888;
+    outline: none;
+    background: #f8f8f8;
+  }
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  transition: border 0.2s;
+  &:focus {
+    border: 1.5px solid #888;
+    outline: none;
+    background: #f8f8f8;
+  }
+`;
 
 function UpdateByIdForm({ handleItemUpdated }) {
   const { id } = useParams();
@@ -45,7 +136,7 @@ function UpdateByIdForm({ handleItemUpdated }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/items/${id}`, {
+      const res = await fetch(`${apiURL}/items/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -66,65 +157,72 @@ function UpdateByIdForm({ handleItemUpdated }) {
   };
 
   return (
-    <form onSubmit={handleUpdate}>
-      <h3>Update Item by ID</h3>
-      {/* <input
-        name="id"
-        type="number"
-        placeholder="Enter Item ID"
-        value={id}
-        required
-      /> */}
-      <input
-        name="name"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="price"
-        type="number"
-        step="0.01"
-        min={0.01}
-        placeholder="Price"
-        value={formData.price}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="quantity"
-        type="number"
-        step="1"
-        min={0}
-        placeholder="quantity"
-        value={formData.quantity}
-        onChange={handleChange}
-        required
-      />
-      <textarea
-        name="description"
-        placeholder="Description"
-        value={formData.description}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="category"
-        placeholder="Category"
-        value={formData.category}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="image"
-        placeholder="Image URL"
-        value={formData.image}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Update Item</button>
-    </form>
+
+    <Wrapper>
+      <form onSubmit={handleUpdate}>
+        <FormWrapper>
+          <Title>Update Item</Title>
+          {/* <input
+            name="id"
+            type="number"
+            placeholder="Enter Item ID"
+            value={id}
+            required
+          /> */}
+          <StyledInput
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <StyledInput
+            name="price"
+            type="number"
+            step="0.01"
+            min={0.01}
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+          <StyledTextarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+          <StyledInput
+            name="category"
+            placeholder="Category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          />
+          <StyledInput
+            name="image"
+            placeholder="Image URL"
+            value={formData.image}
+            onChange={handleChange}
+            required
+          />
+          <Button type="submit">Update Item</Button>
+        </FormWrapper>
+      </form>
+      <Preview>
+              <Title> Preview: </Title>
+              <Card item={{
+                name: formData.name,
+                price: formData.price,
+                description: formData.description,
+                category: formData.category,
+                image: formData.image
+              }} />
+      </Preview>
+    </Wrapper>
+
+
   );
 }
 
