@@ -96,6 +96,7 @@ function AddForm({ handleItemAdded }) {
   const [formData, setFormData] = useState({
     name: '',
     price: 0,
+    quantity: 0,
     description: '',
     category: '',
     image: ''
@@ -119,7 +120,7 @@ function AddForm({ handleItemAdded }) {
       const data = await res.json();
       if (res.ok) {
         handleItemAdded(data); 
-        setFormData({ name: '', price: '', description: '', category: '', image: '' });
+        setFormData({ name: '', price: 0, quantity: 0, description: '', category: '', image: '' });
       } else {
         alert("Error: " + data.error);
       }
@@ -135,6 +136,7 @@ function AddForm({ handleItemAdded }) {
           <Title>Add New Item</Title>
           <StyledInput name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
           <StyledInput name="price" type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
+          <StyledInput name="quantity" type="number" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
           <StyledTextarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
           <StyledInput name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
           <StyledInput name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
@@ -148,6 +150,7 @@ function AddForm({ handleItemAdded }) {
         <Card item={{
           name: formData.name,
           price: formData.price,
+          quantity: formData.quantity,
           description: formData.description,
           category: formData.category,
           image: formData.image

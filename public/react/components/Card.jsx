@@ -96,7 +96,8 @@ export default function Card({item}) {
               <PartFont>#{item.id}</PartFont>
             </TitleAndPart>
             <QuantityNumber>
-              <i>${item.price}</i><p>in stock</p>
+              <b>{item.price}</b><br/>
+              <p>in stock: {item.quantity}</p>
             </QuantityNumber>
           </InfoWrapper>
         </CardStyle>

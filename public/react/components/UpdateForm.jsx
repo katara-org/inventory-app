@@ -7,6 +7,7 @@ function UpdateByIdForm({ handleItemUpdated }) {
   const [formData, setFormData] = useState({
     name: "",
     price: 0,
+    quantity: 0,
     description: "",
     category: "",
     image: ""
@@ -20,6 +21,7 @@ function UpdateByIdForm({ handleItemUpdated }) {
         setFormData({
           name: data?.name,
           price: data?.price,
+          quantity: data?.quantity,
           description: data?.description,
           category: data?.category,
           image: data?.image,
@@ -87,6 +89,16 @@ function UpdateByIdForm({ handleItemUpdated }) {
         min={0.01}
         placeholder="Price"
         value={formData.price}
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="quantity"
+        type="number"
+        step="1"
+        min={0}
+        placeholder="quantity"
+        value={formData.quantity}
         onChange={handleChange}
         required
       />

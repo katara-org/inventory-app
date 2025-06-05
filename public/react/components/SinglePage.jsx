@@ -178,7 +178,7 @@ export default function SinglePage({ handleItemDeleted, handleItemUpdated }) {
             {" "}
             {/* This is for info on the right side of the image*/}
             <h1>${item.price}</h1>
-            <h4>Amount in stock: 10</h4>
+            <p>Amount in stock: {item.quantity}</p>
             <Button>Add to cart</Button>
           </InfoWrapper>
         </ImageAndInfo>
