@@ -20,8 +20,9 @@ const BodyStyle = styled.div`
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     async function fetchItems() {
@@ -46,41 +47,95 @@ function App() {
   };
 
   const handleItemUpdated = (updatedItem) => {
-    setItems(prevItems => prevItems.map(item => item.id === updatedItem.id ? updatedItem : item));
+    setItems((prevItems) =>
+      prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+    );
   };
-  
+
   const handleUserAdded = (newUser) => {
-    setItems(prevUsers => prevUsers.map(user => user.id === newUser.id ? newUser : user));
+    setItems((prevUsers) =>
+      prevUsers.map((user) => (user.id === newUser.id ? newUser : user))
+    );
   };
-  
+
+  const handleAddToCart = (item) => {
+    if (!isLoggedIn) return;
+    setCart((prevCart) => [...prevCart, item]);
+  };
+
+  const handleRemoveFromCart = (itemToRemove) => {
+    if (!isLoggedIn) return;
+    let removed = false;
+    setCart((prevCart) =>
+      //remove item
+      prevCart.filter((item) => {
+        //if more than 1 of same item is in the cart, remove only one
+        if (!removed && item.id === itemToRemove.id) {
+          removed = true;
+          return false; 
+        }
+        return true;
+      })
+    );
+  };
 
   return (
     <>
-      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} currentUser={currentUser} />
+      <Header
+        setCart={setCart}
+        setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        currentUser={currentUser}
+      />
       <BodyStyle>
         <Routes>
-          <Route path="/" element={<CardsList items={items} />} />
-          <Route path="/item/:id" element={<SinglePage handleItemUpdated={handleItemUpdated} handleItemDeleted={handleItemDeleted} />} />
+          <Route
+            path="/"
+            element={
+              <CardsList handleAddToCart={handleAddToCart} items={items} />
+            }
+          />
+          <Route
+            path="/item/:id"
+            element={
+              <SinglePage
+                handleItemUpdated={handleItemUpdated}
+                handleItemDeleted={handleItemDeleted}
+              />
+            }
+          />
           <Route
             path="/create-item"
             element={<AddForm handleItemAdded={handleItemAdded} />}
           />
           <Route
             path="/delete-items"
-            element={<DeleteForm handleItemDeleted={handleItemDeleted}/>}
+            element={<DeleteForm handleItemDeleted={handleItemDeleted} />}
           />
           <Route
             path="/edit-item/:id"
-            element={<UpdateForm handleItemUpdated={handleItemUpdated}/>}
+            element={<UpdateForm handleItemUpdated={handleItemUpdated} />}
           />
           <Route
             path="/login-form"
-            element={<CreateUserMenu setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
+            element={
+              <CreateUserMenu
+                setCurrentUser={setCurrentUser}
+                setIsLoggedIn={setIsLoggedIn}
+                handleUserAdded={handleUserAdded}
+              />
+            }
           />
 
           <Route
             path="/checkout-cart"
-            element={<CheckoutCart setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
+            element={
+              <CheckoutCart
+                handleRemoveFromCart={handleRemoveFromCart}
+                currentUser={currentUser}
+                cart={cart}
+              />
+            }
           />
         </Routes>
       </BodyStyle>
