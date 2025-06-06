@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import DeleteForm from "./DeleteForm";
 import UpdateForm from "./UpdateForm";
 import CreateUserMenu from "./CreateUserMenu";
+import CheckoutCart from "./CheckoutCart";
 
 import apiURL from "../api";
 
@@ -75,6 +76,11 @@ function App() {
           <Route
             path="/login-form"
             element={<CreateUserMenu setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
+          />
+
+          <Route
+            path="/checkout-cart"
+            element={<CheckoutCart setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
           />
         </Routes>
       </BodyStyle>
