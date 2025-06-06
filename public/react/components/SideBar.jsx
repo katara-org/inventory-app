@@ -69,7 +69,6 @@ const StyledInput = styled.input`
 export default function SideBar({items, setItems, filteredItems, setFilteredItems}) {
 
   const [maxPrice, setMaxPrice] = useState(0); //These are the filters that will be applied to the items
-  //const [maxPriceFilter, setMaxPriceFilter] = useState(false);
   const [mens, setMens] = useState(false);
   const [womens, setWomens] = useState(false);
   const [electronics, setElectronics] = useState(false);
@@ -81,23 +80,18 @@ export default function SideBar({items, setItems, filteredItems, setFilteredItem
     let newItems = items;
     if (maxPrice> 0){
       newItems = items.filter(item => item.price < maxPrice); 
-      //setFilteredItems(items.filter(item => item.price < maxPrice));
     }
     if (mens) {
-      //setFilteredItems(filteredItems.filter(item => item.category === "men's clothing"));
       newItems = newItems.filter(item => item.category === "men's clothing");
     } else if (womens) {
-      //setFilteredItems(filteredItems.filter(item => item.category === "women's clothing"));
       newItems = newItems.filter(item => item.category === "women's clothing");
     } else if (electronics) {
-      // setFilteredItems(filteredItems.filter(item => item.category === "electronics"));
       newItems = newItems.filter(item => item.category === "electronics");
     } else if (jewelery) {
-      // setFilteredItems(filteredItems.filter(item => item.category === "jewelery"));
       newItems = newItems.filter(item => item.category === "jewelery");
     }
 
-    if (ascending) {
+    if (ascending) { //sorting if ascending or descending is selected
     newItems = [...newItems].sort((a, b) => a.price - b.price);
     } else if (descending) {
       newItems = [...newItems].sort((a, b) => b.price - a.price);
@@ -124,28 +118,35 @@ export default function SideBar({items, setItems, filteredItems, setFilteredItem
       <h2>Multistore</h2><br/>
       <span style={{gap: "5px"}} > Max Price:
       <StyledInput type="number" step="10" min="0" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}></StyledInput>
-      {/* <input type="checkbox" checked={maxPriceFilter} onChange = {(e) => setMaxPriceFilter(true)} ></input>  */}
       </span>
       <TitleFont>Categories</TitleFont>
-      <span style={{gap: "5px"}} > Mens:
-      <input type="checkbox" checked={mens} onChange = {(e) => setMens(!mens)} ></input>
-      </span>
-      <span style={{gap: "5px"}} > Womens:
-      <input type="checkbox" checked={womens} onChange = {(e) => setWomens(!womens)} ></input>
-      </span>
-      <span style={{gap: "5px"}} > Electronics:
-      <input type="checkbox" checked={electronics} onChange = {(e) => setElectronics(!electronics)} ></input>
-      </span>
-      <span style={{gap: "5px"}} > Jewelery:
-      <input type="checkbox" checked={jewelery} onChange = {(e) => setJewelery(!jewelery)} ></input>
-      </span><br/>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="checkbox" checked={mens} onChange={() => setMens(!mens)} />
+        Mens
+      </label>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="checkbox" checked={womens} onChange={() => setWomens(!womens)} />
+        Womens
+      </label>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="checkbox" checked={electronics} onChange={() => setElectronics(!electronics)} />
+        Electronics
+      </label>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="checkbox" checked={jewelery} onChange={() => setJewelery(!jewelery)} />
+        Jewelery
+      </label>
+      <br/>
       <TitleFont>Sort</TitleFont>
-      <span style={{gap: "5px"}} > Ascending Price:
-      <input type="radio" checked={ascending} onChange = {() => {setAscending(true); setDescending(false);}} ></input>
-      </span>
-      <span style={{gap: "5px"}} > Descending Price:
-      <input type="radio" checked={descending} onChange = {() => {setAscending(false); setDescending(true);}} ></input>
-      </span><br/>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="radio" checked={ascending} onChange={() => {setAscending(true); setDescending(false);}} />
+        Ascending Price
+      </label>
+      <label style={{gap: "5px", display: "flex", alignItems: "center", cursor: "pointer"}}> 
+        <input type="radio" checked={descending} onChange={() => {setAscending(false); setDescending(true);}} />
+        Descending Price
+      </label>
+      <br/>
       <Button style={{width: "180px", boxShadow: "none", border: "solid", borderColor: "white" }} onClick={handleFilter} >Apply Filters</Button>
       <Button style={{width: "180px", boxShadow: "none", border: "solid", borderColor: "white" }} onClick={removeFilters} >Reset Filters</Button>
     </Wrapper>
