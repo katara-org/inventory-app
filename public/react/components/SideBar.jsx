@@ -98,7 +98,7 @@ export default function SideBar({items, setItems, filteredItems, setFilteredItem
   async function removeFilters() {
     setFilteredItems(items);
     setMaxPriceFilter(false);
-    setMaxPrice();
+    setMaxPrice(0);
     setMens(false);
     setWomens(false);
     setElectronics(false);
@@ -109,7 +109,7 @@ export default function SideBar({items, setItems, filteredItems, setFilteredItem
     <Wrapper>
       <h2>Sidebar</h2>
       <span style={{gap: "5px"}} > Max Price:
-      <StyledInput type="number" placeholder="num" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}></StyledInput>
+      <StyledInput type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}></StyledInput>
       {/* <input type="checkbox" checked={maxPriceFilter} onChange = {(e) => setMaxPriceFilter(true)} ></input>  */}
       </span>
       <span style={{gap: "5px"}} > Mens:
