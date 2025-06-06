@@ -63,7 +63,7 @@ export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurr
     username: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "customer",
   });
 
   const [formLoginData, setFormLoginData] = useState({
@@ -81,6 +81,7 @@ export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurr
   const handleLoginChange = (e) => {
     setFormLoginData({
       ...formLoginData,
+      role: formCreateData.role || "customer",
       [e.target.name]: e.target.value,
     });
   };
@@ -129,7 +130,7 @@ export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurr
           username: "",
           password: "",
           confirmPassword: "",
-          role: "",
+          role: "customer",
         });
       } else {
         alert("Error: " + data.error);
