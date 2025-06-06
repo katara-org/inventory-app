@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import apiURL from "../api";
 import Card from './Card';
+import Button from './Button';
 
 const Wrapper = styled.div`
   display: flex;
