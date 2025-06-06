@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
 
 // GET a user by ID
 router.post('/login', async (req, res) => {
-  const {name, password} = req.body;
-  const user = await User.findOne({where: {name}})
+  const {username, password} = req.body;
+  const user = await User.findOne({where: {username}})
   if (!user) {
     return res.status(404).json({error: "User doesn't exist"})
   }
@@ -23,18 +23,15 @@ router.post('/login', async (req, res) => {
 });
 
 // POST a new user
-// router.post('/login', async (req, res) => {
-//   const {name, password} = req.body;
-//   const user = await User.findOne({where: {name}})
-//   if (!user) {
-//     return res.status(404).json({error: "User doesn't exist"})
-//   }
-//   try {
-//     const user = await User.create(req.body);
-//     res.status(201).json(user);
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// });
+router.post('/', async (req, res) => {
+  const {username, password} = req.body;
+  const user = await User.create(req.body)
+  try {
+    const user = await User.create(req.body);
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 module.exports = router;
