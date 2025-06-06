@@ -46,6 +46,10 @@ function App() {
     setItems(prevItems => prevItems.map(item => item.id === updatedItem.id ? updatedItem : item));
   };
   
+  const handleUserAdded = (newUser) => {
+    setItems(prevUsers => prevUsers.map(user => user.id === newUser.id ? newUser : user));
+  };
+  
 
   return (
     <>
@@ -68,7 +72,7 @@ function App() {
           />
           <Route
             path="/login-form"
-            element={<CreateUserMenu />}
+            element={<CreateUserMenu handleUserAdded={handleUserAdded} />}
           />
         </Routes>
       </BodyStyle>
