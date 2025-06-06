@@ -49,5 +49,21 @@ router.get("/", async (req, res) => {
     await item.destroy();
     res.json({ message: "Item deleted" });
   });
-  
+
+// CREATE new item with basic validation
+router.post("/", async (req, res) => {
+  const { name, price, quantity, category, image } = req.body;
+
+  if (!name || !price || !quantity || !category || !image) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    const newItem = await Item.create(req.body);
+    res.status(201).json(newItem);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 module.exports = router;
