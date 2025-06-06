@@ -54,7 +54,25 @@ const StyledLink = styled(Link)`
   color: black;
   text-decoration: none;
   user-select: none;
+`;
 
+const LoginIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: underline;
+  font-size: 1.1rem;
+  &:hover {
+    color: #333333;
+  }
+`;
+
+const LogoutIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: underline;
+  font-size: 1.1rem;
   &:hover {
     color: #333333;
   }
@@ -64,11 +82,22 @@ const UserIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: underline;
-  font-size: 1.1rem;
+  width: 50px;
+  height: 50px;
+  background-color: orange;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  margin-left: 15px;
+  color: white;
 `;
 
-export default function Header() {
+const UserLogoutWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export default function Header({ isLoggedIn, currentUser, setIsLoggedIn }) {
   return (
     <>
       <HeaderWrapper>
@@ -107,7 +136,19 @@ export default function Header() {
         </HeaderContentLeft>
         <HeaderContentRight>
           <StyledLink to="/login-form">
-            <UserIcon>Login</UserIcon>
+            {isLoggedIn ? (
+              <UserLogoutWrapper>
+                {" "}
+                <LogoutIcon onClick={() => setIsLoggedIn(false)}>
+                  Logout
+                </LogoutIcon>
+                <UserIcon>
+                  {currentUser.username.slice(0, 2).toUpperCase()}
+                </UserIcon>
+              </UserLogoutWrapper>
+            ) : (
+              <LoginIcon>Login</LoginIcon>
+            )}
           </StyledLink>
         </HeaderContentRight>
       </HeaderWrapper>
