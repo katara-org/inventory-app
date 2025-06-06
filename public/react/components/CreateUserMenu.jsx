@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import { useState } from "react";
 import apiURL from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,16 +57,17 @@ const StyledForm = styled.form`
   align-items: center;
 `;
 
-export default function CreateUserMenu({ handleUserAdded }) {
+export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurrentUser }) {
+  const navigate = useNavigate();
   const [formCreateData, setFormCreateData] = useState({
-    name: "",
+    username: "",
     password: "",
     confirmPassword: "",
     role: "",
   });
 
   const [formLoginData, setFormLoginData] = useState({
-    name: "",
+    username: "",
     password: "",
   });
 
@@ -86,20 +88,22 @@ export default function CreateUserMenu({ handleUserAdded }) {
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${apiURL}/users`, {
-        method: "GET",
+      const res = await fetch(`${apiURL}/users/login`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formLoginData),
       });
       const data = await res.json();
       if (res.ok) {
-        handleUserLogin(data);
+        setCurrentUser(data)
+        setIsLoggedIn(true)
+        navigate('/')
         setFormLoginData({
-          name: "",
+          username: "",
           password: "",
         });
       } else {
-        alert("Error: " + data.error);
+        alert("Error logging in: " + data.error);
       }
     } catch (err) {
       console.error("Failed to login: ", err);
@@ -113,7 +117,7 @@ export default function CreateUserMenu({ handleUserAdded }) {
       return
     }
     try {
-      const res = await fetch(`${apiURL}/users/login`, {
+      const res = await fetch(`${apiURL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formCreateData),
@@ -122,7 +126,7 @@ export default function CreateUserMenu({ handleUserAdded }) {
       if (res.ok) {
         handleUserAdded(data);
         setFormCreateData({
-          name: "",
+          username: "",
           password: "",
           confirmPassword: "",
           role: "",
@@ -142,16 +146,16 @@ export default function CreateUserMenu({ handleUserAdded }) {
           <FormWrapper>
             <Title>Login!</Title>
             <StyledInput
-              name="name"
-              type="password"
+              name="username"
+              type="text"
               placeholder="Username"
-              value={formLoginData.name}
+              value={formLoginData.username}
               onChange={handleLoginChange}
               required
             />
             <StyledInput
               name="password"
-              type="text"
+              type="password"
               placeholder="Password"
               value={formLoginData.password}
               onChange={handleLoginChange}
@@ -165,10 +169,10 @@ export default function CreateUserMenu({ handleUserAdded }) {
           <FormWrapper>
             <Title>Create an account</Title>
             <StyledInput
-              name="name"
+              name="username"
               type="text"
               placeholder="Username"
-              value={formCreateData.name}
+              value={formCreateData.username}
               onChange={handleCreateChange}
               required
             />
@@ -192,9 +196,9 @@ export default function CreateUserMenu({ handleUserAdded }) {
               <input
                 type="checkbox"
                 name="role"
-                checked={formCreateData.role}
+                checked={formCreateData.role === "admin"}
                 onChange={(e) =>
-                  setFormCreateData({ ...formCreateData, role: e.target.checked })
+                  setFormCreateData({ ...formCreateData, role: e.target.checked ? "admin" : "customer" })
                 }
               />
               <span> Admin</span>
