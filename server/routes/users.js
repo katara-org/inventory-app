@@ -10,14 +10,25 @@ router.get('/', async (req, res) => {
 });
 
 // GET a user by ID
-router.get('/:id', async (req, res) => {
-  const user = await User.findByPk(req.params.id);
-  if (!user) return res.status(404).json({ error: "User not found" });
+router.post('/login', async (req, res) => {
+  const {name, password} = req.body;
+  const user = await User.findOne({where: {name}})
+  if (!user) {
+    return res.status(404).json({error: "User doesn't exist"})
+  }
+  if (user.password !== password) {
+    return res.status(401).json({error: "Wrong password"})
+  }
   res.json(user);
 });
 
 // POST a new user
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
+  const {name, password} = req.body;
+  const user = await User.findOne({where: {name}})
+  if (!user) {
+    return res.status(404).json({error: "User doesn't exist"})
+  }
   try {
     const user = await User.create(req.body);
     res.status(201).json(user);
