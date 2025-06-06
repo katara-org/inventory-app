@@ -1,16 +1,17 @@
 import styled from "styled-components";
+import Button from "./Button";
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: left;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   flex-flow: column nowrap;
   margin-top: 20px;
 `;
 
 const CardStyle = styled.div`
-  background-color: lightgray;
-  width: 300px;
+  background-color: lightwhite;
+  width: 400px;
   height: auto;
   display: flex;
   justify-content: center;
@@ -43,9 +44,17 @@ const TitleAndPart = styled.div`
   height: 100px;
 `;
 
+
+//I've never used line-clamp before! 
+//Very useful
 const TitleFont = styled.div`
   font-weight: 600;
   font-size: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const PartFont = styled.div`
@@ -60,22 +69,11 @@ const QuantityNumber = styled.div`
   border-left: 1px solid black;
 `;
 
-const AddToCardButton = styled.div`
-  text-align: center;
-  width: 100%;
-  background-color: black;
-  color: white;
-  height: auto;
-  font-size: 1.4rem;
-  margin-top: 7px;
-  border-radius: 15px;
-  user-select: none;
-  box-shadow: 0px 0px 20px gray;
-
-  &:active {
-    background-color: gray;
-  }
-`;
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export default function Card({ item }) {
   if (!item) {
@@ -98,8 +96,11 @@ export default function Card({ item }) {
               <p>in stock: {item.quantity}</p>
             </QuantityNumber>
           </InfoWrapper>
+          
         </CardStyle>
-        <AddToCardButton>Add to Cart</AddToCardButton>
+        <BtnWrapper>
+                  <Button>Add to Cart</Button>
+        </BtnWrapper>
       </Wrapper>
     </>
   );
