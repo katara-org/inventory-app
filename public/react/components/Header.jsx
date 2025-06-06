@@ -53,6 +53,7 @@ const HomeIcon = styled.img`
 const StyledLink = styled(Link)`
   color: black;
   text-decoration: none;
+  user-select: none;
 
   &:hover {
     color: #333333;
@@ -63,12 +64,8 @@ const UserIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: lightblue;
-  font-weight: 600;
-  border: 1px solid white;
+  text-decoration: underline;
+  font-size: 1.1rem;
 `;
 
 export default function Header() {
@@ -86,8 +83,8 @@ export default function Header() {
                   color: "white",
                   fontWeight: "600",
                   width: "180px",
-                  padding: '5px 0',
-                  margin: '0 5px 0 5px'
+                  padding: "5px 0",
+                  margin: "0 5px 0 5px",
                 }}
               >
                 Create an Item
@@ -99,8 +96,8 @@ export default function Header() {
                   color: "white",
                   fontWeight: "600",
                   width: "180px",
-                  padding: '5px 0',
-                  margin: '0 5px 0 5px'
+                  padding: "5px 0",
+                  margin: "0 5px 0 5px",
                 }}
               >
                 Delete an Item
@@ -109,7 +106,9 @@ export default function Header() {
           </ButtonGroup>
         </HeaderContentLeft>
         <HeaderContentRight>
-          <UserIcon>User</UserIcon>
+          <StyledLink to="/login-form">
+            <UserIcon>Login</UserIcon>
+          </StyledLink>
         </HeaderContentRight>
       </HeaderWrapper>
     </>
