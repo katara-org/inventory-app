@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyleButton = styled.div`
+const StyleButton = styled.button`
   text-align: center;
   width: 300px;
   background-color: #dd2a3b;
@@ -13,6 +13,7 @@ const StyleButton = styled.div`
   border-radius: 10px;
   user-select: none;
   box-shadow: 0px 0px 20px gray;
+  border: none;
 
   &:hover{
   background-color: #a02028;
