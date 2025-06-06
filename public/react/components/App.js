@@ -19,6 +19,8 @@ const BodyStyle = styled.div`
 
 function App() {
   const [items, setItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
     async function fetchItems() {
@@ -53,7 +55,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} currentUser={currentUser} />
       <BodyStyle>
         <Routes>
           <Route path="/" element={<CardsList items={items} />} />
@@ -72,7 +74,7 @@ function App() {
           />
           <Route
             path="/login-form"
-            element={<CreateUserMenu handleUserAdded={handleUserAdded} />}
+            element={<CreateUserMenu setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
           />
         </Routes>
       </BodyStyle>
