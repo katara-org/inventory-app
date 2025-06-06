@@ -68,50 +68,65 @@ const StyledInput = styled.input`
 
 export default function SideBar({items, setItems, filteredItems, setFilteredItems}) {
 
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [maxPriceFilter, setMaxPriceFilter] = useState(false);
+  const [maxPrice, setMaxPrice] = useState(0); //These are the filters that will be applied to the items
+  //const [maxPriceFilter, setMaxPriceFilter] = useState(false);
   const [mens, setMens] = useState(false);
   const [womens, setWomens] = useState(false);
   const [electronics, setElectronics] = useState(false);
   const [jewelery, setJewelery] = useState(false);
+  const [ascending, setAscending] = useState(false);
+  const [descending, setDescending] = useState(false);
 
   async function handleFilter() {
-    const newItems = items;
+    let newItems = items;
     if (maxPrice> 0){
-      setFilteredItems(items.filter(item => item.price < maxPrice));
+      newItems = items.filter(item => item.price < maxPrice); 
+      //setFilteredItems(items.filter(item => item.price < maxPrice));
     }
     if (mens) {
-      setFilteredItems(newItems.filter(item => item.category === "men's clothing"));
+      //setFilteredItems(filteredItems.filter(item => item.category === "men's clothing"));
+      newItems = newItems.filter(item => item.category === "men's clothing");
+    } else if (womens) {
+      //setFilteredItems(filteredItems.filter(item => item.category === "women's clothing"));
+      newItems = newItems.filter(item => item.category === "women's clothing");
+    } else if (electronics) {
+      // setFilteredItems(filteredItems.filter(item => item.category === "electronics"));
+      newItems = newItems.filter(item => item.category === "electronics");
+    } else if (jewelery) {
+      // setFilteredItems(filteredItems.filter(item => item.category === "jewelery"));
+      newItems = newItems.filter(item => item.category === "jewelery");
     }
-    if (womens) {
-      setFilteredItems(newItems.filter(item => item.category === "women's clothing"));
+
+    if (ascending) {
+    newItems = [...newItems].sort((a, b) => a.price - b.price);
+    } else if (descending) {
+      newItems = [...newItems].sort((a, b) => b.price - a.price);
     }
-    if (electronics) {
-      setFilteredItems(newItems.filter(item => item.category === "electronics"));
-    }
-    if (jewelery) {
-      setFilteredItems(newItems.filter(item => item.category === "jewelery"));
-    }
+
+    setFilteredItems(newItems);
     
   }
 
   async function removeFilters() {
     setFilteredItems(items);
-    setMaxPriceFilter(false);
+    //setMaxPriceFilter(false);
     setMaxPrice(0);
     setMens(false);
     setWomens(false);
     setElectronics(false);
     setJewelery(false);
+    setAscending(false);
+    setDescending(false);
   }
 
   return ( <>
     <Wrapper>
-      <h2>Sidebar</h2>
+      <h2>Multistore</h2><br/>
       <span style={{gap: "5px"}} > Max Price:
-      <StyledInput type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}></StyledInput>
+      <StyledInput type="number" step="10" min="0" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}></StyledInput>
       {/* <input type="checkbox" checked={maxPriceFilter} onChange = {(e) => setMaxPriceFilter(true)} ></input>  */}
       </span>
+      <TitleFont>Categories</TitleFont>
       <span style={{gap: "5px"}} > Mens:
       <input type="checkbox" checked={mens} onChange = {(e) => setMens(!mens)} ></input>
       </span>
@@ -123,7 +138,14 @@ export default function SideBar({items, setItems, filteredItems, setFilteredItem
       </span>
       <span style={{gap: "5px"}} > Jewelery:
       <input type="checkbox" checked={jewelery} onChange = {(e) => setJewelery(!jewelery)} ></input>
+      </span><br/>
+      <TitleFont>Sort</TitleFont>
+      <span style={{gap: "5px"}} > Ascending Price:
+      <input type="radio" checked={ascending} onChange = {() => {setAscending(true); setDescending(false);}} ></input>
       </span>
+      <span style={{gap: "5px"}} > Descending Price:
+      <input type="radio" checked={descending} onChange = {() => {setAscending(false); setDescending(true);}} ></input>
+      </span><br/>
       <Button style={{width: "180px", boxShadow: "none", border: "solid", borderColor: "white" }} onClick={handleFilter} >Apply Filters</Button>
       <Button style={{width: "180px", boxShadow: "none", border: "solid", borderColor: "white" }} onClick={removeFilters} >Reset Filters</Button>
     </Wrapper>
