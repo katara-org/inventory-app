@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "./Button";
 
 const ModalWrapper = styled.div`
   display: flex; 
@@ -33,29 +34,30 @@ const BtnContainer = styled.div`
   width: 450px;
   height: auto;
   margin-top: 20px;
+  gap: 20px;
 `;
 
-const Button = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  height: auto;
-  background-color: black;
-  padding: 2px 10px;
-  color: white;
-  font-size: 1.4rem;
-  margin-top: 7px;
-  border-radius: 15px;
-  user-select: none;
-  &:active {
-    background-color: #333333;
-  }
-  &:hover {
-    cursor: pointer;
-    background-color: #333333};
-  }
-`;
+// const Button = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-width: 180px;
+//   height: auto;
+//   background-color: black;
+//   padding: 2px 10px;
+//   color: white;
+//   font-size: 1.4rem;
+//   margin-top: 7px;
+//   border-radius: 15px;
+//   user-select: none;
+//   &:active {
+//     background-color: #333333;
+//   }
+//   &:hover {
+//     cursor: pointer;
+//     background-color: #333333};
+//   }
+// `;
 
 export default function DeleteModal({ handleCancelClick, handleDelete }) {
   return (

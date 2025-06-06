@@ -2,7 +2,16 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import apiURL from "../api";
+import Button from "./Button";
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  margin-top: 25px;
+  gap: 7px;
+  `;
 
 const StyledInput = styled.input`
   width: 100%; 
@@ -19,28 +28,28 @@ const StyledInput = styled.input`
   }
 `;
 
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  color: white;
-  font-size: 1.4rem;
-  margin-top: 7px;
-  border-radius: 15px;
-  user-select: none;
-  border: none;
-  &:active {
-    background-color: black;
-  }
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ hover }) => hover || 'darkgray'};
-  }  
-`;
+// const Button = styled.button`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   width: 100%;
+//   height: 50px;
+//   background-color: black;
+//   color: white;
+//   font-size: 1.4rem;
+//   margin-top: 7px;
+//   border-radius: 15px;
+//   user-select: none;
+//   border: none;
+//   &:active {
+//     background-color: black;
+//   }
+//   &:hover {
+//     cursor: pointer;
+//     background-color: ${({ hover }) => hover || 'darkgray'};
+//   }  
+// `;
 
 function DeleteForm({ handleItemDeleted }) {
   const [itemId, setItemId] = useState("");
@@ -71,7 +80,8 @@ function DeleteForm({ handleItemDeleted }) {
 
   return (
     <form onSubmit={handleDelete}>
-      <h3>Delete Item</h3>
+      <Wrapper>
+      <h3>Enter the ID of an Item to delete</h3>
       <StyledInput
         min={1}
         name="itemId"
@@ -82,6 +92,7 @@ function DeleteForm({ handleItemDeleted }) {
         type="number"
       />
       <Button type="submit">Delete Item</Button>
+      </Wrapper>
     </form>
   );
 }

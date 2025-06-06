@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import apiURL from "../api";
 import Card from "./Card";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "./Button";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,28 +33,28 @@ const Title = styled.h3`
   width: 200px;
 `;
 
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  color: white;
-  font-size: 1.4rem;
-  margin-top: 7px;
-  border-radius: 15px;
-  user-select: none;
-  border: none;
-  &:active {
-    background-color: black;
-  }
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ hover }) => hover || 'darkgray'};
-  }  
-`;
+// const Button = styled.button`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   width: 100%;
+//   height: 50px;
+//   background-color: black;
+//   color: white;
+//   font-size: 1.4rem;
+//   margin-top: 7px;
+//   border-radius: 15px;
+//   user-select: none;
+//   border: none;
+//   &:active {
+//     background-color: black;
+//   }
+//   &:hover {
+//     cursor: pointer;
+//     background-color: ${({ hover }) => hover || 'darkgray'};
+//   }  
+// `;
 
 const Preview = styled.div`
   height: auto;
@@ -89,6 +92,15 @@ const StyledTextarea = styled.textarea`
     border: 1.5px solid #888;
     outline: none;
     background: #f8f8f8;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    color: #333333;
   }
 `;
 
@@ -186,6 +198,16 @@ function UpdateByIdForm({ handleItemUpdated }) {
             onChange={handleChange}
             required
           />
+          <StyledInput
+            name="quantity"
+            type="number"
+            step="1"
+            min={0}
+            placeholder="Quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            required
+          />
           <StyledTextarea
             name="description"
             placeholder="Description"
@@ -207,6 +229,7 @@ function UpdateByIdForm({ handleItemUpdated }) {
             onChange={handleChange}
             required
           />
+          <StyledLink to={`/item/${id}`}> <Button> Back</Button> </StyledLink>
           <Button type="submit">Update Item</Button>
         </FormWrapper>
       </form>
