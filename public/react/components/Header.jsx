@@ -1,33 +1,53 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 const HeaderWrapper = styled.div`
-  background-color: gray;
+  background-color: rgb(224, 224, 224);
+  color: #dd2a3b;
   height: 4rem;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  color: white;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px; /* or whatever spacing you want between buttons */
+  margin-left: 20px; /* spacing from the HomeIcon */
 `;
 
 const HeaderContentLeft = styled.div`
-display: flex; 
-justify-content: space-around;
-align-items: center;
-width: 45%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
 `;
 
 const HeaderContentRight = styled.div`
-display: flex; 
-justify-content: flex-end;
-align-items: center;
-width: 45%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 45%;
 `;
 
 const HomeIcon = styled.img`
   height: 50px;
-  width: 50px;
+  min-width: 50px;
+
+  filter: brightness(0) saturate(100%) invert(20%) sepia(48%) saturate(5292%)
+    hue-rotate(-1deg) brightness(96%) contrast(101%);
+
+  &:hover {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(35%) saturate(5292%)
+      hue-rotate(-1deg) brightness(96%) contrast(101%);
+  }
+
+  &:active {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(35%) saturate(5292%)
+      hue-rotate(-1deg) brightness(96%) contrast(101%);
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -39,33 +59,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Button = styled.div`
+const UserIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: auto;
-  background-color: black;
-  padding: 2px 10px;
-  color: white;
-  font-size: 1.4rem;
-  margin-top: 7px;
-  border-radius: 15px;
-  user-select: none;
-  &:active {
-    background-color: darkgray;
-  }
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ hover }) => hover || "darkgray"};
-  }
-`;
-
-const UserIcon = styled.div`
-  display: flex;
-    align-items: center;
-  justify-content: center;
-    width: 50px;
+  width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: lightblue;
@@ -81,12 +79,34 @@ export default function Header() {
           <StyledLink to="/">
             <HomeIcon src="https://cdn-icons-png.flaticon.com/512/25/25694.png" />
           </StyledLink>
-          <StyledLink to="/create-item">
-            <Button>Create an Item</Button>
-          </StyledLink>
-          <StyledLink to="/delete-items">
-            <Button>Delete an Item</Button>
-          </StyledLink>
+          <ButtonGroup>
+            <StyledLink to="/create-item">
+              <Button
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                  width: "180px",
+                  padding: '5px 0',
+                  margin: '0 5px 0 5px'
+                }}
+              >
+                Create an Item
+              </Button>
+            </StyledLink>
+            <StyledLink to="/delete-items">
+              <Button
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                  width: "180px",
+                  padding: '5px 0',
+                  margin: '0 5px 0 5px'
+                }}
+              >
+                Delete an Item
+              </Button>
+            </StyledLink>
+          </ButtonGroup>
         </HeaderContentLeft>
         <HeaderContentRight>
           <UserIcon>User</UserIcon>
