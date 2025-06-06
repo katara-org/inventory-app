@@ -24,10 +24,9 @@ router.post('/login', async (req, res) => {
 
 // POST a new user
 router.post('/', async (req, res) => {
-  const {username, password} = req.body;
-  const user = await User.create(req.body)
+  const {username, password, role} = req.body;
   try {
-    const user = await User.create(req.body);
+    const user = await User.create({username, password, role});
     res.status(201).json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });
