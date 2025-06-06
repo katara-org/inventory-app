@@ -23,8 +23,16 @@ router.get("/", async (req, res) => {
     const item = await Item.findByPk(req.params.id);
     if (!item) return res.status(404).json({ error: "Item not found" });
 
-    if (price <= 0) {
+    if (!item.name || !item.category || !item.image) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    if (item.price <= 0) {
       return res.status(400).json({ error: "Price cannot be $0" });
+    }
+
+    if (item.quantity < 0) {
+      return res.status(400).json({ error: "Quantity cannot be negative" });
     }
   
     try {
