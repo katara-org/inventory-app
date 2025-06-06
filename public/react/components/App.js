@@ -7,6 +7,7 @@ import AddForm from "./AddForm";
 import { Route, Routes } from "react-router-dom";
 import DeleteForm from "./DeleteForm";
 import UpdateForm from "./UpdateForm";
+import CreateUserMenu from "./CreateUserMenu";
 
 import apiURL from "../api";
 
@@ -64,6 +65,10 @@ function App() {
           <Route
             path="/edit-item/:id"
             element={<UpdateForm handleItemUpdated={handleItemUpdated}/>}
+          />
+          <Route
+            path="/login-form"
+            element={<CreateUserMenu />}
           />
         </Routes>
       </BodyStyle>
