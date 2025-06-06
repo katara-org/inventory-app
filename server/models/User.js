@@ -32,12 +32,6 @@ User.init({
     role: {
       type: DataTypes.ENUM('admin', 'customer'),
       defaultValue: 'customer',
-      validate: {
-        isIn: {
-          args: [['admin', 'customer']],
-          msg: 'Role must be admin or customer'
-        }
-      }
     }
   }, { sequelize, modelName: "user" });
   

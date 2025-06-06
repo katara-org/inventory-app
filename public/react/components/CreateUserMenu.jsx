@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Button from "./Button";
+import { useState } from "react";
+import apiURL from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,19 +44,6 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledCheckbox = styled.input.attrs({ type: "checkbox" })`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  background-color: red;
-`;
-
 const DividingLine = styled.div`
   border-left: 1px solid lightgray;
   height: 110%;
@@ -67,55 +57,153 @@ const StyledForm = styled.form`
   align-items: center;
 `;
 
-export default function CreateUserMenu() {
+export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurrentUser }) {
+  const navigate = useNavigate();
+  const [formCreateData, setFormCreateData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    role: "customer",
+  });
+
+  const [formLoginData, setFormLoginData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleCreateChange = (e) => {
+    setFormCreateData({
+      ...formCreateData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLoginChange = (e) => {
+    setFormLoginData({
+      ...formLoginData,
+      role: formCreateData.role || "customer",
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${apiURL}/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formLoginData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setCurrentUser(data)
+        setIsLoggedIn(true)
+        navigate('/')
+        setFormLoginData({
+          username: "",
+          password: "",
+        });
+      } else {
+        alert("Error logging in: " + data.error);
+      }
+    } catch (err) {
+      console.error("Failed to login: ", err);
+    }
+  };
+
+  const handleSubmitCreate = async (e) => {
+    e.preventDefault();
+    if (formCreateData.password !== formCreateData.confirmPassword) {
+      alert('Please make sure passwords match.')
+      return
+    }
+    try {
+      const res = await fetch(`${apiURL}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formCreateData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        handleUserAdded(data);
+        setFormCreateData({
+          username: "",
+          password: "",
+          confirmPassword: "",
+          role: "customer",
+        });
+      } else {
+        alert("Error: " + data.error);
+      }
+    } catch (err) {
+      console.error("Failed to create user: ", err);
+    }
+  };
+
   return (
     <>
       <Wrapper>
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmitLogin}>
           <FormWrapper>
             <Title>Login!</Title>
             <StyledInput
               name="username"
               type="text"
               placeholder="Username"
+              value={formLoginData.username}
+              onChange={handleLoginChange}
               required
             />
             <StyledInput
               name="password"
-              type="text"
+              type="password"
               placeholder="Password"
+              value={formLoginData.password}
+              onChange={handleLoginChange}
               required
             />
             <Button type="submit">Login</Button>
           </FormWrapper>
         </StyledForm>
         <DividingLine />
-        <StyledForm>
+        <StyledForm onSubmit={handleSubmitCreate}>
           <FormWrapper>
             <Title>Create an account</Title>
             <StyledInput
               name="username"
               type="text"
               placeholder="Username"
+              value={formCreateData.username}
+              onChange={handleCreateChange}
               required
             />
             <StyledInput
               name="password"
-              type="text"
+              type="password"
               placeholder="Password"
+              value={formCreateData.password}
+              onChange={handleCreateChange}
               required
             />
             <StyledInput
-              name="password"
-              type="text"
+              name="confirmPassword"
+              type="password"
               placeholder="Confirm Password"
+              value={formCreateData.confirmPassword}
+              onChange={handleCreateChange}
               required
             />
             <div>
-              <input type="checkbox" /> <span>Admin</span>
+              <input
+                type="checkbox"
+                name="role"
+                checked={formCreateData.role === "admin"}
+                onChange={(e) =>
+                  setFormCreateData({ ...formCreateData, role: e.target.checked ? "admin" : "customer" })
+                }
+              />
+              <span> Admin</span>
             </div>
-
-            <StyledCheckbox />
             <Button type="submit">Create Account</Button>
           </FormWrapper>
         </StyledForm>

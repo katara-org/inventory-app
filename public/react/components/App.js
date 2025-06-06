@@ -19,6 +19,8 @@ const BodyStyle = styled.div`
 
 function App() {
   const [items, setItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
     async function fetchItems() {
@@ -46,10 +48,14 @@ function App() {
     setItems(prevItems => prevItems.map(item => item.id === updatedItem.id ? updatedItem : item));
   };
   
+  const handleUserAdded = (newUser) => {
+    setItems(prevUsers => prevUsers.map(user => user.id === newUser.id ? newUser : user));
+  };
+  
 
   return (
     <>
-      <Header />
+      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} currentUser={currentUser} />
       <BodyStyle>
         <Routes>
           <Route path="/" element={<CardsList items={items} />} />
@@ -68,7 +74,7 @@ function App() {
           />
           <Route
             path="/login-form"
-            element={<CreateUserMenu />}
+            element={<CreateUserMenu setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn} handleUserAdded={handleUserAdded} />}
           />
         </Routes>
       </BodyStyle>

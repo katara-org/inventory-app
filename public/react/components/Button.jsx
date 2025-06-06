@@ -15,6 +15,7 @@ const StyleButton = styled.button`
   user-select: none;
   
   box-shadow: 0px 0px 20px gray;
+  border: none;
 
   &:hover{
   background-color: #a02028;
