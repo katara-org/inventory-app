@@ -72,15 +72,6 @@ const PartFont = styled.div`
   font-size: 1rem;
 `;
 
-const QuantityNumber = styled.div`
-  padding: 0px 0 5px 5px;
-  width: 50%;
-  height: 100%;
-  border-left: 1px solid black;
-`;
-
-
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
