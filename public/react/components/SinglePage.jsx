@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import Button from "./Button";
 
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -24,6 +25,8 @@ const CardStyle = styled.div`
   flex-flow: column nowrap;
   box-shadow: 0px 0px 20px black;
   border-radius: 10px;
+  padding: ${({ padding }) => padding || "0"};
+
 `;
 
 const ItemImage = styled.img`
@@ -75,6 +78,8 @@ const QuantityNumber = styled.div`
   height: 100%;
   border-left: 1px solid black;
 `;
+
+
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -182,7 +187,7 @@ export default function SinglePage({ handleItemDeleted }) {
           </InfoWrapper>
         </ImageAndInfo>
 
-        <CardStyle>
+        <CardStyle padding="10px">
           {" "}
           {/* This is the card with description and categories*/}
           <p>{item.description}</p> <br />
