@@ -37,27 +37,7 @@ const BtnContainer = styled.div`
   gap: 20px;
 `;
 
-// const Button = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   min-width: 180px;
-//   height: auto;
-//   background-color: black;
-//   padding: 2px 10px;
-//   color: white;
-//   font-size: 1.4rem;
-//   margin-top: 7px;
-//   border-radius: 15px;
-//   user-select: none;
-//   &:active {
-//     background-color: #333333;
-//   }
-//   &:hover {
-//     cursor: pointer;
-//     background-color: #333333};
-//   }
-// `;
+
 
 export default function DeleteModal({ handleCancelClick, handleDelete }) {
   return (

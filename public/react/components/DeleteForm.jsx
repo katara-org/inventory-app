@@ -28,28 +28,6 @@ const StyledInput = styled.input`
   }
 `;
 
-// const Button = styled.button`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   text-align: center;
-//   width: 100%;
-//   height: 50px;
-//   background-color: black;
-//   color: white;
-//   font-size: 1.4rem;
-//   margin-top: 7px;
-//   border-radius: 15px;
-//   user-select: none;
-//   border: none;
-//   &:active {
-//     background-color: black;
-//   }
-//   &:hover {
-//     cursor: pointer;
-//     background-color: ${({ hover }) => hover || 'darkgray'};
-//   }  
-// `;
 
 function DeleteForm({ handleItemDeleted }) {
   const [itemId, setItemId] = useState("");

@@ -79,29 +79,7 @@ const QuantityNumber = styled.div`
   border-left: 1px solid black;
 `;
 
-// const Button = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   text-align: center;
-//   width: 200px;
-//   height: 50px;
-//   background-color: black;
-//   color: white;
-//   font-size: 1.4rem;
-//   margin-top: 7px;
-//   border-radius: 15px;
-//   user-select: none;
-//   &:active {
-//     background-color: darkgray;
-//   }
-//   &:hover {
-//     cursor: pointer;
-//     background-color: ${({ hover }) => hover || "darkgray"};
-//     height: 55px;
-//     width: 210px;
-//   }
-// `;
+
 
 const ButtonWrapper = styled.div`
   display: flex;
