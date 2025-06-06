@@ -56,6 +56,12 @@ const StyledLink = styled(Link)`
   user-select: none;
 `;
 
+const StyledHeader = styled.div`
+  color: black;
+  text-decoration: none;
+  user-select: none;
+`;
+
 const LoginIcon = styled.div`
   display: flex;
   align-items: center;
@@ -135,21 +141,24 @@ export default function Header({ isLoggedIn, currentUser, setIsLoggedIn }) {
           </ButtonGroup>
         </HeaderContentLeft>
         <HeaderContentRight>
-          <StyledLink to="/login-form">
+          <StyledHeader>
             {isLoggedIn ? (
               <UserLogoutWrapper>
-                {" "}
                 <LogoutIcon onClick={() => setIsLoggedIn(false)}>
                   Logout
                 </LogoutIcon>
-                <UserIcon>
-                  {currentUser.username.slice(0, 2).toUpperCase()}
-                </UserIcon>
+                <StyledLink to='/checkout-cart'>
+                  <UserIcon>
+                    {currentUser.username.slice(0, 2).toUpperCase()}
+                  </UserIcon>
+                </StyledLink>
               </UserLogoutWrapper>
             ) : (
+              <StyledLink to="/login-form">
               <LoginIcon>Login</LoginIcon>
+              </StyledLink>
             )}
-          </StyledLink>
+          </StyledHeader>
         </HeaderContentRight>
       </HeaderWrapper>
     </>
