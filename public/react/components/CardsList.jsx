@@ -2,15 +2,17 @@ import styled from "styled-components";
 import Card from "./Card";
 import { Link } from "react-router-dom";
 
-const CardWrapper = styled.div`
-  height: 4rem;
+const GridWrapper = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 0 10px;
+  padding: 0 1rem;
+  margin: auto;
+`;
+
+const CardWrapperGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 10px;
+  padding: 20px;
 `;
 
 const StyledLink = styled(Link)`
@@ -20,16 +22,18 @@ const StyledLink = styled(Link)`
   &:hover {
     color: #333333;
   }
-`
+`;
 
 export default function CardsList({ items }) {
   return (
-    <CardWrapper>
-      {items.map((item) => (
-        <StyledLink key={item.id} to={`/item/${item.id}`}>
-          <Card item={item} />
-        </StyledLink>
-      ))}
-    </CardWrapper>
+    <GridWrapper>
+      <CardWrapperGrid>
+        {items.map((item) => (
+          <StyledLink key={item.id} to={`/item/${item.id}`}>
+            <Card item={item} />
+          </StyledLink>
+        ))}
+      </CardWrapperGrid>
+    </GridWrapper>
   );
 }
