@@ -114,8 +114,8 @@ function AddForm({ handleItemAdded }) {
         <FormWrapper>
           <Title>Add New Item</Title>
           <StyledInput name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-          <StyledInput name="price" type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
-          <StyledInput name="quantity" type="number" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
+          <StyledInput name="price" min={0} type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
+          <StyledInput name="quantity" min={0} type="number" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
           <StyledTextarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
           <StyledInput name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
           <StyledInput name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
