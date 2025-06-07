@@ -79,6 +79,27 @@ const RemoveFromCartButton = styled.button`
   margin: 5px 8px 0 0;
 `;
 
+const NoItemsText = styled.div`
+ display: flex; 
+ justify-content: center;
+ align-items: center;
+ height: 100%;
+ flex-flow: column nowrap;
+`
+
+const Emoji = styled.img`
+  height: 30vh;
+  width: 30vw;
+`
+
+const SadFace = styled.div`
+font-weight: 600;
+font-size: 8rem;
+width: auto;
+margin: 0 auto;
+transform: rotate(90deg);
+`
+
 export default function CheckoutCart({ cart, currentUser, handleRemoveFromCart }) {
   const total = cart.reduce((acc, item) => acc + item.price, 0)
 
@@ -86,7 +107,10 @@ export default function CheckoutCart({ cart, currentUser, handleRemoveFromCart }
     <CartWrapper>
       <CartItemContainer>
         {cart.length === 0 ? (
-          <div></div>
+          <NoItemsText>
+                      <h1>You have nothing in your Cart!</h1>
+                      <SadFace>:(</SadFace>
+          </NoItemsText>
         ) : (
           <div>
             <h1>{currentUser.username}'s cart</h1>
