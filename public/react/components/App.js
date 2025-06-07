@@ -22,8 +22,8 @@ const BodyStyle = styled.div`
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [filteredItems, setFilteredItems] = useState(items);
   const [cart, setCart] = useState([]);
 
@@ -76,7 +76,7 @@ function App() {
         //if more than 1 of same item is in the cart, remove only one
         if (!removed && item.id === itemToRemove.id) {
           removed = true;
-          return false; 
+          return false;
         }
         return true;
       })
@@ -95,14 +95,23 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<>
-              <SideBar items={items} setItems={setItems} filteredItems={filteredItems} setFilteredItems={setFilteredItems} />
-              <CardsList handleAddToCart={handleAddToCart} items={items} filteredItems={filteredItems} /> 
-            </>
-             
+            element={
+              <>
+                <SideBar
+                  items={items}
+                  setItems={setItems}
+                  filteredItems={filteredItems}
+                  setFilteredItems={setFilteredItems}
+                />
+                <CardsList
+                  handleAddToCart={handleAddToCart}
+                  items={items}
+                  filteredItems={filteredItems}
+                />
+              </>
             }
           />
-                    <Route
+          <Route
             path="/item/:id"
             element={
               <SinglePage
