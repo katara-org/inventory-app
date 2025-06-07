@@ -14,7 +14,7 @@ const StyleButton = styled.button`
   border-radius: 10px;
   user-select: none;
   
-  box-shadow: 0px 0px 20px gray;
+  box-shadow: 3px 4px 10px gray;
   border: none;
 
   &:hover{
