@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 const HeaderWrapper = styled.div`
@@ -103,7 +103,23 @@ const UserLogoutWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export default function Header({ isLoggedIn, currentUser, setIsLoggedIn }) {
+const CartCheckoutIcon = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+`;
+
+export default function Header({
+  isLoggedIn,
+  currentUser,
+  setIsLoggedIn,
+  setCart,
+}) {
+  const navigate = useNavigate();
+
   return (
     <>
       <HeaderWrapper>
@@ -144,10 +160,20 @@ export default function Header({ isLoggedIn, currentUser, setIsLoggedIn }) {
           <StyledHeader>
             {isLoggedIn ? (
               <UserLogoutWrapper>
-                <LogoutIcon onClick={() => setIsLoggedIn(false)}>
+                <LogoutIcon
+                  onClick={() => {
+                    setCart([]);
+                    setIsLoggedIn(false);
+                    navigate("/");
+                  }}
+                >
                   Logout
                 </LogoutIcon>
-                <StyledLink to='/checkout-cart'>
+
+                <Link to="/checkout-cart">
+                  <CartCheckoutIcon src="https://icons.veryicon.com/png/o/application/wq/shopping-cart-34.png" />
+                </Link>
+                <StyledLink>
                   <UserIcon>
                     {currentUser.username.slice(0, 2).toUpperCase()}
                   </UserIcon>
@@ -155,7 +181,7 @@ export default function Header({ isLoggedIn, currentUser, setIsLoggedIn }) {
               </UserLogoutWrapper>
             ) : (
               <StyledLink to="/login-form">
-              <LoginIcon>Login</LoginIcon>
+                <LoginIcon>Login</LoginIcon>
               </StyledLink>
             )}
           </StyledHeader>
