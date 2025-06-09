@@ -127,7 +127,8 @@ export default function Header({
           <StyledLink to="/">
             <HomeIcon src="https://cdn-icons-png.flaticon.com/512/25/25694.png" />
           </StyledLink>
-          <ButtonGroup>
+          {!currentUser || currentUser.role !== 'admin' ?
+          ' ': <ButtonGroup>
             <StyledLink to="/create-item">
               <Button
                 style={{
@@ -155,6 +156,8 @@ export default function Header({
               </Button>
             </StyledLink>
           </ButtonGroup>
+        }
+          
         </HeaderContentLeft>
         <HeaderContentRight>
           <StyledHeader>
@@ -165,6 +168,7 @@ export default function Header({
                     setCart([]);
                     setIsLoggedIn(false);
                     navigate("/");
+                    window.location.reload();
                   }}
                 >
                   Logout

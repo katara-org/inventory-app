@@ -5,7 +5,7 @@ import apiURL from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import Button from "./Button";
-
+import AddToCartButton from "./AddToCartButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,14 +19,13 @@ const Wrapper = styled.div`
 const CardStyle = styled.div`
   background-color: lightgray;
   width: 70%;
-  height: 105%;
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
   box-shadow: 0px 0px 20px black;
   border-radius: 10px;
   padding: ${({ padding }) => padding || "0"};
-
 `;
 
 const ItemImage = styled.img`
@@ -50,15 +49,17 @@ const ImageAndInfo = styled.div`
 
 const InfoWrapper = styled.div`
   display: flex;
+  width: auto;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
   flex-flow: column nowrap;
+  padding: 15px 38px;
 `;
 
 const TitleAndPart = styled.div`
   padding: 0px 0 5px 5px;
-  width: 50%;
+  width: 100%;
   height: 100px;
 `;
 
@@ -80,6 +81,7 @@ const ButtonWrapper = styled.div`
   margin-top: 10px;
   gap: 100px;
   flex-flow: row nowrap;
+  width: 100%;
 `;
 
 const StyledLink = styled(Link)`
@@ -91,7 +93,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function SinglePage({ handleItemDeleted }) {
+export default function SinglePage({ handleItemDeleted, currentUser, handleAddToCart }) {
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
@@ -174,7 +176,7 @@ export default function SinglePage({ handleItemDeleted }) {
             {/* This is for info on the right side of the image*/}
             <h1>${item.price}</h1>
             <p>Amount in stock: {item.quantity}</p>
-            <Button>Add to cart</Button>
+            <Button onClick={() => handleAddToCart(item)}>Add to cart</Button>
           </InfoWrapper>
         </ImageAndInfo>
 
@@ -183,7 +185,7 @@ export default function SinglePage({ handleItemDeleted }) {
           {/* This is the card with description and categories*/}
           <p>{item.description}</p> <br />
           <p>
-            <strong>Item Updated at : </strong> {item.updatedAt}{" "}
+            <strong>Item Updated at : </strong> {item.updatedAt.slice(0, 10)}{" "}
           </p>{" "}
           <br />
           <p>
@@ -191,16 +193,31 @@ export default function SinglePage({ handleItemDeleted }) {
             <br /> {item.category}
           </p>
         </CardStyle>
-
-        <ButtonWrapper>
-          <StyledLink to={`/`}>
-            <Button>Back to List</Button>
-          </StyledLink>
-          <StyledLink to={`/edit-item/${item.id}`}>
-            <Button>Edit Item</Button>
-          </StyledLink>
-          <Button onClick={handleDeleteClick}>Delete Item</Button>
-        </ButtonWrapper>
+        {!currentUser || currentUser.role !== "admin" ? (
+          <ButtonWrapper>
+            <ButtonWrapper style={{ visibility: "hidden" }}>
+              <StyledLink to={`/edit-item/${item.id}`}>
+                <Button>Edit Item</Button>
+              </StyledLink>
+            </ButtonWrapper>
+              <StyledLink to={`/`}>
+                <Button>Back to List</Button>
+              </StyledLink>
+            <ButtonWrapper style={{ visibility: "hidden" }}>
+              <Button onClick={handleDeleteClick}>Delete Item</Button>
+            </ButtonWrapper>
+          </ButtonWrapper>
+        ) : (
+          <ButtonWrapper>
+            <StyledLink to={`/edit-item/${item.id}`}>
+              <Button>Edit Item</Button>
+            </StyledLink>
+            <StyledLink to={`/`}>
+              <Button>Back to List</Button>
+            </StyledLink>
+            <Button onClick={handleDeleteClick}>Delete Item</Button>
+          </ButtonWrapper>
+        )}
       </Wrapper>
     </>
   );
