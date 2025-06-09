@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const CardStyle = styled.div`
-  background-color: lightwhite;
+  background-color: lightgray;
   width: 400px;
   height: auto;
   display: flex;
@@ -22,36 +23,35 @@ const CardStyle = styled.div`
 
 const ItemImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: scale-down;
   background-color: white;
   padding: 15px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  border-bottom: 1px solid black;
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid black;
   overflow: hidden;
 `;
 
 const TitleAndPart = styled.div`
-  padding: 0px 0 5px 5px;
-  width: 50%;
+  padding: 5px 8px;
+  width: 100%;
   height: 100px;
 `;
 
-
-//I've never used line-clamp before! 
+//I've never used line-clamp before!
 //Very useful
 const TitleFont = styled.div`
   font-weight: 600;
   font-size: 1.2rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;       
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,19 +63,24 @@ const PartFont = styled.div`
 `;
 
 const QuantityNumber = styled.div`
-  padding: 0px 0 5px 5px;
-  width: 50%;
+  padding: 5px 8px;
+  width: 30%;
   height: 100%;
-  border-left: 1px solid black;
+  border-left: 1px solid gray;
+  text-align: left;
 `;
 
-const BtnWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
 
-export default function Card({ item }) {
+  &:hover {
+    color: #333333;
+  }
+`;
+
+export default function Card({ item, handleAddToCart }) {
+  console.log(item);
   if (!item) {
     return <>null!</>;
   }
@@ -84,23 +89,21 @@ export default function Card({ item }) {
     <>
       <Wrapper>
         <CardStyle>
-          <ItemImage src={item.image} />
-          <InfoWrapper>
-            <TitleAndPart>
-              <TitleFont>{item.name}</TitleFont>
-              <PartFont>#{item.id}</PartFont>
-            </TitleAndPart>
-            <QuantityNumber>
-              <b>${item.price}</b>
-              <br />
-              <p>in stock: {item.quantity}</p>
-            </QuantityNumber>
-          </InfoWrapper>
-          
+          <StyledLink key={item.id} to={`/item/${item.id}`}>
+            <ItemImage src={item.image} />
+            <InfoWrapper>
+              <TitleAndPart>
+                <TitleFont>{item.name}</TitleFont>
+                <PartFont>#{item.id}</PartFont>
+              </TitleAndPart>
+              <QuantityNumber>
+                <h2>${item.price.toFixed(2)}</h2>
+                <br />
+                <p>in stock: {item.quantity}</p>
+              </QuantityNumber>
+            </InfoWrapper>
+          </StyledLink>
         </CardStyle>
-        <BtnWrapper>
-                  <Button>Add to Cart</Button>
-        </BtnWrapper>
       </Wrapper>
     </>
   );

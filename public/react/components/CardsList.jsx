@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Card from "./Card";
-import { Link } from "react-router-dom";
+import AddToCartButton from "./AddToCartButton";
 
 const GridWrapper = styled.div`
   width: 100%;
@@ -15,24 +15,30 @@ const CardWrapperGrid = styled.div`
   padding: 20px;
 `;
 
-const StyledLink = styled(Link)`
-  color: black;
-  text-decoration: none;
-
-  &:hover {
-    color: #333333;
-  }
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  margin-top: 20px;
 `;
 
-export default function CardsList({ items }) {
+export default function CardsList({ items, handleAddToCart }) {
   return (
     <GridWrapper>
       <CardWrapperGrid>
-        {items.map((item) => (
-          <StyledLink key={item.id} to={`/item/${item.id}`}>
-            <Card item={item} />
-          </StyledLink>
-        ))}
+        {items.map((item, i) => {
+          return (
+            <div key={item.id}>
+              <Wrapper>
+                <Card
+                  item={item}
+                />
+                <AddToCartButton handleAddToCart={handleAddToCart} item={item} />
+              </Wrapper>
+            </div>
+          );
+        })}
       </CardWrapperGrid>
     </GridWrapper>
   );
