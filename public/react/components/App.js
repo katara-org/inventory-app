@@ -105,8 +105,7 @@ function App() {
                 />
                 <CardsList
                   handleAddToCart={handleAddToCart}
-                  items={items}
-                  filteredItems={filteredItems}
+                  items={filteredItems}
                 />
               </>
             }
