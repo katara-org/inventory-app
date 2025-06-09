@@ -21,10 +21,11 @@ The Inventory App is a full-stack web application designed to streamline product
 2. Change the directory 
     - cd inventory-app
 3. Install dependence
+    - npm install
     - npm install react-router-dom@6.30.1
-4. Seed the database
+5. Seed the database
     - npm run seed
-5. Start the app
+6. Start the app
     - npm start
 
 
