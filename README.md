@@ -17,15 +17,15 @@ The Inventory App is a full-stack web application designed to streamline product
 ## Getting Started
 
 1. Clone the repository
-    git clone git@github.com:katara-org/inventory-app.git
+    - git clone git@github.com:katara-org/inventory-app.git
 2. Change the directory 
-    cd inventory-app
+    - cd inventory-app
 3. Install dependence
-    npm install react-router-dom@6.30.1
+    - npm install react-router-dom@6.30.1
 4. Seed the database
-    npm run seed
+    - npm run seed
 5. Start the app
-    npm start
+    - npm start
 
 
 ## Deployed Link
@@ -33,7 +33,7 @@ https://inventory-app-ts3j.onrender.com/
 
 ## Collaborators
 
-Lane Richardson
-Mohammad Jamal
-Sameera Chinta
+- Lane Richardson
+- Mohammad Jamal
+- Sameera Chinta
 
