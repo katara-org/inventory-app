@@ -2,59 +2,38 @@
 
 # Inventory App
 
-You are a team of developers for an e-commerce company. The Engineering team is rebuilding their inventory tracking app from the ground up. Your team has been tasked with creating a Full-Sack (front and back end) RESTful CRUD application to track the items.
+The Inventory App is a full-stack web application designed to streamline product management for an e-commerce store. It allows users to browse available items, view detailed information for each product, and search based on specific criteria. Admin users have the ability to add, update, or delete inventory items through secure, server-side validated forms. The app supports full CRUD functionality and is built with a scalable architecture for future enhancements like user orders, cart functionality
+
+## Key Features
+
+- View all inventory items with detailed information
+- Add, edit, and delete items (admin-only)
+- Filter items by category or price range
+- Add items to cart and place orders 
+- User authentication 
+- Server-side validations for data integrity
+
 
 ## Getting Started
 
-1. `npm install`
-2. `npm run server-dev`
-3. In a seperate terminal, `npm run client-dev`
+1. Clone the repository
+    git clone git@github.com:katara-org/inventory-app.git
+2. Change the directory 
+    cd inventory-app
+3. Install dependence
+    npm install react-router-dom@6.30.1
+4. Seed the database
+    npm run seed
+5. Start the app
+    npm start
 
-## Inventory App “Tiers”
 
-The tiers describe different levels of functionality in your application with the difficulty becoming more complex as you advance through the tiers. Start with Tier I, and complete everything you can, moving as quickly as possible as you can to Tier II. They are described as user stories.
+## Deployed Link
+https://inventory-app-ts3j.onrender.com/
 
-Your team should strive to finish at least the first 4 tiers (a CRUD application) and attempt some of the bonus material.
+## Collaborators
 
-### Tier I: MVP Application
+Lane Richardson
+Mohammad Jamal
+Sameera Chinta
 
-- As a User, I want to view all items in inventory
-  - Sequelize Model for Item
-  - Name, Description, Price, Category, Image
-  - Express Route to GET all Items
-  - Front-end View for all Items
-- As a User, I want to view any individual item
-  - Express Route to GET one Item
-  - Front-end view for one item (click to see)
-
-Once you have defined your model, `npm run seed` to populate the table.
-
-### Tier II: Adding an Item
-
-- As a User, I want to add an item by completing a form
-  - Add Item front-end form
-  - Express Route to ADD the Item
-  - Form or Fetch request to add item when form is submitted
-
-### Tier III: Deleting an Item
-
-- As a User, I want to remove an item from inventory
-  - Delete button on Single Item View
-  - Express Route to DELETE the Item
-  - Fetch request to delete item when button is clicked
-
-### Tier IV: Updating an Item
-
-- As a User, I want to edit an item by filling a form
-  - Edit form on Single Item View
-  - Express Route to UPDATE the Item
-  - Fetch request to update item when form is submitted
-
-### Tier V: Bonus Stuff
-
-- Models, Routes for Users and Orders
-- As a User, I want my Inventory site to be visually stunning
-- As a User, I want to be able to search through data based on search criteria
-- As a User, I want to add items to a cart and purchase
-- As a User, I want to use the application on a mobile browser
-- As an Admin, I want all Add and Edit item requests to have server-side validations
