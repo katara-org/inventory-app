@@ -114,8 +114,10 @@ function App() {
             path="/item/:id"
             element={
               <SinglePage
+                currentUser={currentUser}
                 handleItemUpdated={handleItemUpdated}
                 handleItemDeleted={handleItemDeleted}
+                handleAddToCart={(item) => handleAddToCart(item)}
               />
             }
           />
