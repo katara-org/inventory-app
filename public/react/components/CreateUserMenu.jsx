@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import apiURL from "../api";
 import { useNavigate } from "react-router-dom";
+import { AllStatesContext } from "./App";
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,7 +58,8 @@ const StyledForm = styled.form`
   align-items: center;
 `;
 
-export default function CreateUserMenu({ handleUserAdded, setIsLoggedIn, setCurrentUser }) {
+export default function CreateUserMenu() {
+  const { handleUserAdded, setIsLoggedIn, setCurrentUser } = useContext(AllStatesContext)
   const navigate = useNavigate();
   const [formCreateData, setFormCreateData] = useState({
     username: "",

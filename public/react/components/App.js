@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import CardsList from "./CardsList";
@@ -22,7 +22,9 @@ const BodyStyle = styled.div.withConfig({
     props.sidebar ? "204px" : "0"}; // Adjusted to account for the sidebar width
 `;
 
-function App() {
+export const AllStatesContext = createContext(null);
+
+export default function App() {
   const location = useLocation();
   const isSinglePage = matchPath("/item/:id", location.pathname);
   const showSidebar = !isSinglePage;
@@ -45,7 +47,7 @@ function App() {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [filteredItems]);
 
   const handleItemAdded = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]);
@@ -95,79 +97,49 @@ function App() {
 
   return (
     <>
-      <Header
-        setCart={setCart}
-        setIsLoggedIn={setIsLoggedIn}
-        isLoggedIn={isLoggedIn}
-        currentUser={currentUser}
-      />
-      <BodyStyle sidebar={showSidebar}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <SideBar
-                  items={items}
-                  setItems={setItems}
-                  filteredItems={filteredItems}
-                  setFilteredItems={setFilteredItems}
-                />
-                <CardsList
-                  handleAddToCart={handleAddToCart}
-                  items={filteredItems}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/item/:id"
-            element={
-              <SinglePage
-                currentUser={currentUser}
-                handleItemUpdated={handleItemUpdated}
-                handleItemDeleted={handleItemDeleted}
-                handleAddToCart={(item) => handleAddToCart(item)}
-              />
-            }
-          />
-          <Route
-            path="/create-item"
-            element={<AddForm handleItemAdded={handleItemAdded} />}
-          />
-          <Route
-            path="/delete-items"
-            element={<DeleteForm handleItemDeleted={handleItemDeleted} />}
-          />
-          <Route
-            path="/edit-item/:id"
-            element={<UpdateForm handleItemUpdated={handleItemUpdated} />}
-          />
-          <Route
-            path="/login-form"
-            element={
-              <CreateUserMenu
-                setCurrentUser={setCurrentUser}
-                setIsLoggedIn={setIsLoggedIn}
-                handleUserAdded={handleUserAdded}
-              />
-            }
-          />
+      <AllStatesContext.Provider
+        value={{
+          items,
+          setItems,
+          cart,
+          setCart,
+          isLoggedIn,
+          setIsLoggedIn,
+          filteredItems,
+          setFilteredItems,
+          currentUser,
+          setCurrentUser,
+          handleAddToCart,
+          handleItemAdded,
+          handleItemDeleted,
+          handleItemUpdated,
+          handleRemoveFromCart,
+          handleUserAdded,
+        }}
+      >
+        <Header />
 
-          <Route
-            path="/checkout-cart"
-            element={
-              <CheckoutCart
-                handleRemoveFromCart={handleRemoveFromCart}
-                currentUser={currentUser}
-                cart={cart}
-              />
-            }
-          />
-        </Routes>
-      </BodyStyle>
+        <BodyStyle sidebar={showSidebar}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <SideBar />
+                  <CardsList />
+                </>
+              }
+            />
+            <Route path="/item/:id" element={<SinglePage />} />
+            <Route path="/create-item" element={<AddForm />} />
+            <Route path="/delete-items" element={<DeleteForm />} />
+            <Route path="/edit-item/:id" element={<UpdateForm />} />
+            <Route path="/login-form" element={<CreateUserMenu />} />
+
+            <Route path="/checkout-cart" element={<CheckoutCart />} />
+          </Routes>
+        </BodyStyle>
+      </AllStatesContext.Provider>
     </>
   );
 }
-
-export default App;

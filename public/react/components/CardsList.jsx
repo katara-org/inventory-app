@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Card from "./Card";
 import AddToCartButton from "./AddToCartButton";
+import { useContext } from "react";
+import { AllStatesContext } from "./App";
 
 const GridWrapper = styled.div`
   width: 100%;
@@ -23,7 +25,8 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-export default function CardsList({ items, handleAddToCart }) {
+export default function CardsList() {
+  const { items, handleAddToCart } = useContext(AllStatesContext)
   return (
     <GridWrapper>
       <CardWrapperGrid>

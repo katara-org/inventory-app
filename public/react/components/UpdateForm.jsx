@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import apiURL from "../api";
 import Card from "./Card";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { AllStatesContext } from "./App";
 
 
 const Wrapper = styled.div`
@@ -81,7 +82,8 @@ const StyledLink = styled(Link)`
   }
 `;
 
-function UpdateByIdForm({ handleItemUpdated }) {
+function UpdateByIdForm() {
+  const {handleItemUpdated} = useContext(AllStatesContext)
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

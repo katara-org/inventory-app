@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import apiURL from "../api";
 import Button from "./Button";
+import { AllStatesContext } from "./App";
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,7 +30,8 @@ const StyledInput = styled.input`
 `;
 
 
-function DeleteForm({ handleItemDeleted }) {
+function DeleteForm() {
+  const { handleItemDeleted } = useContext(AllStatesContext)
   const navigate = useNavigate()
   const [itemId, setItemId] = useState("");
 

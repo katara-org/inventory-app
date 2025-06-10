@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AllStatesContext } from "./App";
 
 const Wrapper = styled.div`
   display: flex;
@@ -66,7 +67,8 @@ const StyledInput = styled.input`
 
 
 
-export default function SideBar({items, setItems, filteredItems, setFilteredItems}) {
+export default function SideBar() {
+  const {items, setFilteredItems} = useContext(AllStatesContext)
 
   const [maxPrice, setMaxPrice] = useState(0); //These are the filters that will be applied to the items
   const [mens, setMens] = useState(false);

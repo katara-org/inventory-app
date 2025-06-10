@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Card from "./Card";
+import { useContext } from "react";
+import { AllStatesContext } from "./App";
 
 const CartWrapper = styled.div`
   display: flex;
@@ -14,7 +16,7 @@ const CartItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  margin: auto auto; 
+  margin: auto auto;
   height: 100%;
 `;
 
@@ -80,36 +82,39 @@ const RemoveFromCartButton = styled.button`
 `;
 
 const NoItemsText = styled.div`
- display: flex; 
- justify-content: center;
- align-items: center;
- height: 100%;
- flex-flow: column nowrap;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-flow: column nowrap;
+`;
 
 const Emoji = styled.img`
   height: 30vh;
   width: 30vw;
-`
+`;
 
 const SadFace = styled.div`
-font-weight: 600;
-font-size: 8rem;
-width: auto;
-margin: 0 auto;
-transform: rotate(90deg);
-`
+  font-weight: 600;
+  font-size: 8rem;
+  width: auto;
+  margin: 0 auto;
+  transform: rotate(90deg);
+`;
 
-export default function CheckoutCart({ cart, currentUser, handleRemoveFromCart }) {
-  const total = cart.reduce((acc, item) => acc + item.price, 0)
+export default function CheckoutCart() {
+
+  const {cart, currentUser, handleRemoveFromCart} = useContext(AllStatesContext)
+  const total = cart.reduce((acc, item) => acc + item.price, 0);
+ 
 
   return (
     <CartWrapper>
       <CartItemContainer>
         {cart.length === 0 ? (
           <NoItemsText>
-                      <h1>You have nothing in your Cart!</h1>
-                      <SadFace>:(</SadFace>
+            <h1>You have nothing in your Cart!</h1>
+            <SadFace>:(</SadFace>
           </NoItemsText>
         ) : (
           <div>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from "styled-components";
 import apiURL from "../api";
 import Card from './Card';
 import Button from "./Button";
 import { useNavigate } from 'react-router-dom';
+import { AllStatesContext } from './App';
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,7 +72,8 @@ const StyledTextarea = styled.textarea`
 `;
 
 
-function AddForm({ handleItemAdded }) {
+function AddForm() {
+  const { handleItemAdded } = useContext(AllStatesContext)
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',

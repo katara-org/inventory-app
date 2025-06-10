@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
+import { useContext } from "react";
+import { AllStatesContext } from "./App";
 
 const ModalWrapper = styled.div`
   display: flex; 
@@ -39,7 +41,8 @@ const BtnContainer = styled.div`
 
 
 
-export default function DeleteModal({ handleCancelClick, handleDelete }) {
+export default function DeleteModal() {
+  const { handleCancelClick, handleDelete } = useContext(AllStatesContext)
   return (
     <>
       <ModalOverlay>

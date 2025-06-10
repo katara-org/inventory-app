@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import apiURL from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import Button from "./Button";
 import AddToCartButton from "./AddToCartButton";
+import { AllStatesContext } from "./App";
 
 const Wrapper = styled.div`
   display: flex;
@@ -93,7 +94,13 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function SinglePage({ handleItemDeleted, currentUser, handleAddToCart }) {
+export default function SinglePage({ 
+  // handleItemDeleted, 
+  // currentUser, 
+  // handleAddToCart 
+}) {
+  const {handleAddToCart, currentUser, handleItemDeleted} = useContext(AllStatesContext)
+
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const navigate = useNavigate();

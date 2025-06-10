@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { useContext } from "react";
+import { AllStatesContext, CartContext } from "./App";
 
 const HeaderWrapper = styled.div`
   background-color: rgb(224, 224, 224);
@@ -112,12 +114,14 @@ const CartCheckoutIcon = styled.img`
   margin-left: 10px;
 `;
 
-export default function Header({
-  isLoggedIn,
-  currentUser,
-  setIsLoggedIn,
-  setCart,
-}) {
+export default function Header()
+  // isLoggedIn,
+  // currentUser,
+  // setIsLoggedIn,
+  // setCart,
+ {
+
+  const {isLoggedIn, currentUser, setIsLoggedIn, setCart} = useContext(AllStatesContext)
   const navigate = useNavigate();
 
   return (
