@@ -79,7 +79,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function Card({ item, handleAddToCart }) {
+export default function Card({ item }) {
   console.log(item);
   if (!item) {
     return <>null!</>;
@@ -97,7 +97,7 @@ export default function Card({ item, handleAddToCart }) {
                 <PartFont>#{item.id}</PartFont>
               </TitleAndPart>
               <QuantityNumber>
-                <h2>${item.price.toFixed(2)}</h2>
+                <h2>${Number(item.price).toFixed(2)}</h2>
                 <br />
                 <p>in stock: {item.quantity}</p>
               </QuantityNumber>

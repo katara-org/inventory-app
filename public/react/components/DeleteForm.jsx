@@ -30,6 +30,7 @@ const StyledInput = styled.input`
 
 
 function DeleteForm({ handleItemDeleted }) {
+  const navigate = useNavigate()
   const [itemId, setItemId] = useState("");
 
   const handleChange = (e) => {
@@ -47,6 +48,7 @@ function DeleteForm({ handleItemDeleted }) {
         handleItemDeleted(parseInt(itemId));
         setItemId("");
         alert(`Item ${itemId} deleted successfully`);
+        navigate('/')
       } else {
         const data = await res.json();
         alert("Error: " + data.error);

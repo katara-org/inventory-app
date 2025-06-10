@@ -174,7 +174,7 @@ export default function SinglePage({ handleItemDeleted, currentUser, handleAddTo
           <InfoWrapper>
             {" "}
             {/* This is for info on the right side of the image*/}
-            <h1>${item.price}</h1>
+            <h1>${item.price.toFixed(2)}</h1>
             <p>Amount in stock: {item.quantity}</p>
             <Button onClick={() => handleAddToCart(item)}>Add to cart</Button>
           </InfoWrapper>

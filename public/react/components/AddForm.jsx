@@ -3,6 +3,7 @@ import styled from "styled-components";
 import apiURL from "../api";
 import Card from './Card';
 import Button from "./Button";
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ const StyledTextarea = styled.textarea`
 
 
 function AddForm({ handleItemAdded }) {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     price: 0,
@@ -100,6 +102,7 @@ function AddForm({ handleItemAdded }) {
         handleItemAdded(data); 
         alert(`Your item "${formData.name}" added successfully!`);
         setFormData({ name: '', price: 0, quantity: 0, description: '', category: '', image: '' });
+        navigate('/')
       } else {
         alert("Error: " + data.error);
       }
@@ -114,7 +117,7 @@ function AddForm({ handleItemAdded }) {
         <FormWrapper>
           <Title>Add New Item</Title>
           <StyledInput name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-          <StyledInput name="price" min={0} type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
+          <StyledInput step={0.01} name="price" min={0} type="number" placeholder="Price" value={formData.price} onChange={handleChange} required />
           <StyledInput name="quantity" min={0} type="number" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
           <StyledTextarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
           <StyledInput name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />

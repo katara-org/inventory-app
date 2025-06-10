@@ -164,6 +164,7 @@ export default function Header({
             {isLoggedIn ? (
               <UserLogoutWrapper>
                 <LogoutIcon
+                  style={{cursor: "pointer"}}
                   onClick={() => {
                     setCart([]);
                     setIsLoggedIn(false);
