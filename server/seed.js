@@ -3,7 +3,8 @@ const { Item } = require("./models");
 const items = require("./items.json");
 
 async function seed() {
-  await sequelize.sync({ force: true });
+  //await sequelize.sync({ force: true });
+  await Item.sync();
   await Item.bulkCreate(items);
   console.log("Database populated");
 }
